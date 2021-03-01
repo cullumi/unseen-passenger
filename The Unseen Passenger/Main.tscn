@@ -1,0 +1,207 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://Textures/Parallax/SkyPB.png" type="Texture" id=1]
+[ext_resource path="res://Textures/Parallax/MountainsPB.png" type="Texture" id=2]
+[ext_resource path="res://Textures/Parallax/CloudsPB.png" type="Texture" id=3]
+[ext_resource path="res://Textures/Parallax/HillsPB.png" type="Texture" id=4]
+[ext_resource path="res://ParallaxBackground.gd" type="Script" id=5]
+[ext_resource path="res://Textures/Parallax/Tracks.png" type="Texture" id=6]
+[ext_resource path="res://Textures/Parallax/TrainFrontWall.png" type="Texture" id=7]
+[ext_resource path="res://Textures/Parallax/TrainBackWall.png" type="Texture" id=8]
+[ext_resource path="res://Textures/Parallax/TrainBody.png" type="Texture" id=9]
+[ext_resource path="res://Textures/Parallax/TrainFrontWheels.png" type="Texture" id=10]
+[ext_resource path="res://Textures/Parallax/TrainBackWheels.png" type="Texture" id=11]
+[ext_resource path="res://Textures/Doorways.png" type="Texture" id=12]
+[ext_resource path="res://Textures/SteeringWheel.png" type="Texture" id=13]
+[ext_resource path="res://Parts/Characters/Player.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Parts/Characters/Unseen Passenger.tscn" type="PackedScene" id=15]
+[ext_resource path="res://PlayerCamera.gd" type="Script" id=18]
+[ext_resource path="res://Parts/TrainDoor.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Parts/Button.tscn" type="PackedScene" id=21]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 15.1911
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 425.108, 10 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 3.28183, 61.6815 )
+
+[node name="Main" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource( 5 )
+
+[node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 3840, 0 )
+
+[node name="SkyPB" type="Sprite" parent="ParallaxBackground/Sky"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+offset = Vector2( 480, 135 )
+
+[node name="SkyPB2" type="Sprite" parent="ParallaxBackground/Sky"]
+position = Vector2( 1920, 0 )
+scale = Vector2( -2, 2 )
+texture = ExtResource( 1 )
+offset = Vector2( -480, 135 )
+
+[node name="Clouds" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 3840, 0 )
+
+[node name="CloudsPB" type="Sprite" parent="ParallaxBackground/Clouds"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+offset = Vector2( 480, 135 )
+
+[node name="CloudsPB2" type="Sprite" parent="ParallaxBackground/Clouds"]
+position = Vector2( 1920, 0 )
+scale = Vector2( -2, 2 )
+texture = ExtResource( 3 )
+offset = Vector2( -480, 135 )
+
+[node name="Mountains" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 3840, 0 )
+
+[node name="MountainsPB" type="Sprite" parent="ParallaxBackground/Mountains"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+offset = Vector2( 480, 135 )
+
+[node name="MountainsPB2" type="Sprite" parent="ParallaxBackground/Mountains"]
+position = Vector2( 1920, 0 )
+scale = Vector2( -2, 2 )
+texture = ExtResource( 2 )
+offset = Vector2( -480, 135 )
+
+[node name="Hills" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 3840, 0 )
+
+[node name="HillsPB" type="Sprite" parent="ParallaxBackground/Hills"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+offset = Vector2( 480, 135 )
+
+[node name="HillsPB2" type="Sprite" parent="ParallaxBackground/Hills"]
+position = Vector2( 1920, 0 )
+scale = Vector2( -2, 2 )
+texture = ExtResource( 4 )
+offset = Vector2( -480, 135 )
+
+[node name="Tracks" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 3840, 0 )
+
+[node name="HillsPB" type="Sprite" parent="ParallaxBackground/Tracks"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+offset = Vector2( 480, 135 )
+
+[node name="HillsPB2" type="Sprite" parent="ParallaxBackground/Tracks"]
+position = Vector2( 1920, 0 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+offset = Vector2( 480, 135 )
+
+[node name="Train" type="Node2D" parent="."]
+
+[node name="TrainBackWheels" type="Sprite" parent="Train"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 11 )
+offset = Vector2( 0, 135 )
+
+[node name="TrainBackWall" type="Sprite" parent="Train"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+offset = Vector2( 0, 135 )
+
+[node name="TrainDoorways" type="Sprite" parent="Train"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 12 )
+offset = Vector2( 0, 135 )
+
+[node name="TrainDoor1" parent="Train" instance=ExtResource( 20 )]
+position = Vector2( -554.227, 168.179 )
+startOpen = true
+
+[node name="TrainDoor2" parent="Train" instance=ExtResource( 20 )]
+position = Vector2( 524.028, 168.774 )
+startOpen = true
+
+[node name="SteeringWheel" type="Area2D" parent="Train" groups=[
+"detectable",
+]]
+scale = Vector2( 2, 2 )
+
+[node name="SteeringWheelSprite" type="Sprite" parent="Train/SteeringWheel"]
+texture = ExtResource( 13 )
+offset = Vector2( 0, 135 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Train/SteeringWheel"]
+position = Vector2( 393.918, 180.256 )
+shape = SubResource( 1 )
+
+[node name="DoorButton1" parent="Train" groups=[
+"detectable",
+] instance=ExtResource( 21 )]
+position = Vector2( -499.929, 298.419 )
+target_path = NodePath("../TrainDoor1")
+
+[node name="DoorButton2" parent="Train" groups=[
+"detectable",
+] instance=ExtResource( 21 )]
+position = Vector2( 589.251, 295.59 )
+target_path = NodePath("../TrainDoor2")
+
+[node name="TrainBody" type="Sprite" parent="Train"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
+offset = Vector2( 0, 135 )
+
+[node name="Collision" type="StaticBody2D" parent="Train/TrainBody"]
+
+[node name="Floor" type="CollisionShape2D" parent="Train/TrainBody/Collision"]
+position = Vector2( -2.67273, 208.47 )
+shape = SubResource( 2 )
+
+[node name="Floor2" type="CollisionShape2D" parent="Train/TrainBody/Collision"]
+position = Vector2( -1.78183, 97.108 )
+shape = SubResource( 2 )
+
+[node name="Floor3" type="CollisionShape2D" parent="Train/TrainBody/Collision"]
+position = Vector2( -424.333, 154.125 )
+shape = SubResource( 3 )
+
+[node name="Floor4" type="CollisionShape2D" parent="Train/TrainBody/Collision"]
+position = Vector2( 420.641, 153.235 )
+shape = SubResource( 3 )
+
+[node name="TrainFrontWall" type="Sprite" parent="Train"]
+visible = false
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+offset = Vector2( 0, 135 )
+
+[node name="TrainFrontWheels" type="Sprite" parent="Train"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 10 )
+offset = Vector2( 0, 135 )
+
+[node name="PlayerCamera" type="Position2D" parent="."]
+position = Vector2( 480, 270 )
+script = ExtResource( 18 )
+target_path = NodePath("../Player/CamPivot/CamTarget")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerCamera"]
+current = true
+smoothing_enabled = true
+
+[node name="Tween" type="Tween" parent="PlayerCamera"]
+
+[node name="Player" parent="." instance=ExtResource( 14 )]
+
+[node name="Unseen Passenger" parent="." groups=[
+"detectable",
+] instance=ExtResource( 15 )]
+position = Vector2( -777.818, 332.34 )
+[connection signal="cam_zoom" from="Player" to="PlayerCamera" method="smooth_zoom"]
