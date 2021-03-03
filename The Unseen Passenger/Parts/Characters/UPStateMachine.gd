@@ -17,7 +17,7 @@ var last_state : String
 onready var states:Dictionary = {
 	"stalking": UPState.new(self, "stalking", [FLEEING, WAITING, APPROACHING]),
 	"fleeing": UPState.new(self, "fleeing", [WAITING, APPROACHING]),
-	"waiting": UPState.new(self, "waiting", [STALKING, FLEEING, APPROACHING]),
+	"waiting": UPState.new(self, "waiting", [STALKING, FLEEING, APPROACHING, TELEPORTING]),
 	"approaching": UPState.new(self, "approaching", [STALKING, FLEEING, TELEPORTING]),
 	"runforit":UPState.new(self, "runforit", []),
 	"teleporting": UPState.new(self, "teleporting", [LAST]),
@@ -176,6 +176,12 @@ func test_waiting_approaching():
 	return status.seen and status.player_far and not status.cautious
 func transition_waiting_approaching():
 	start(APPROACHING)
+
+# --> teleporting
+func test_waiting_teleporting():
+	return status.seen and status.detector_mid_blink
+func transition_waiting_teleporting():
+	start(TELEPORTING)
 
 
 # Approaching

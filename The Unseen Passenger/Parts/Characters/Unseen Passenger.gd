@@ -49,11 +49,11 @@ func _physics_process(delta):
 	velocity.x = dir.x * speed
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
-	if (velocity.x != 0 and not walk_audio_loop):
-		walk_audio_loop = Audio.start_sound_loop(Audio.CHAR_WALK, self)
-	elif velocity.x == 0 and walk_audio_loop:
-		Audio.stop_sound_loop(walk_audio_loop)
-		walk_audio_loop = null
+#	if (velocity.x != 0 and not walk_audio_loop):
+#		walk_audio_loop = Audio.start_sound_loop(Audio.CHAR_WALK, self)
+#	elif velocity.x == 0 and walk_audio_loop:
+#		Audio.stop_sound_loop(walk_audio_loop)
+#		walk_audio_loop = null
 
 func leap_frog():
 	position.x = player.position.x + (player.position.x - position.x)

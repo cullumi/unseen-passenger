@@ -3,7 +3,7 @@ extends Node
 var auto_play_music = false
 var music_loop = []
 var music_player : AudioStreamPlayer
-var sound_player : AudioStreamPlayer
+var sp_pool = []
 
 const CHAR_WALK = "char_walk"
 const DOOR_OPEN = "door_open"
@@ -34,7 +34,8 @@ func _ready():
 		music_player.stream = music_loop[0]
 		add_child(music_player)
 	if (sounds_present()):
-		sound_player = create_sound_player()
+		for i in range(0, 2):
+			sp_pool.push_back(create_sound_player())
 
 func sounds_present():
 	for key in soundLists.keys():
@@ -44,12 +45,12 @@ func sounds_present():
 
 func start_sound_loop(sounds_key, source=self):
 	print(source.name + " started sound loop.")
-	var sound_player = create_sound_player(source)
+	var sound_player = assign_sound_player(source)
 	loops[sound_player] = true
 	sound_loop(soundLists[sounds_key], sound_player)
 	return sound_player
 
-func sound_loop(sounds, sound_player=self.sound_player, spacing=.75):
+func sound_loop(sounds, sound_player, spacing=.75):
 	var ran_once = false
 	while true:
 		if loops[sound_player]:
@@ -57,44 +58,54 @@ func sound_loop(sounds, sound_player=self.sound_player, spacing=.75):
 				play_rand_sound(sounds, sound_player)
 				yield(get_tree().create_timer(spacing), "timeout")
 				if not loops[sound_player]:
-					loops.erase(sound_player)
-					delete_sound_player(sound_player)
+					clear_loop(sound_player)
 					return
 			yield(get_tree(), "idle_frame")
 		else:
-			loops.erase(sound_player)
-			delete_sound_player(sound_player)
+			clear_loop(sound_player)
 			return
+
+func clear_loop(sound_player):
+	loops.erase(sound_player)
+	unassign_sound_player(sound_player)
 
 func stop_sound_loop(sound_loop):
 	print(sound_loop.get_parent().name + " tried to stop sound loop.")
 	loops[sound_loop] = false
 
-func play_rand_sound(sounds:Array, sound_player:AudioStreamPlayer=self.sound_player):
+func play_rand_sound(sounds:Array, sound_player:AudioStreamPlayer=assign_sound_player()):
 	randomize()
 	var rand_idx = randi() % sounds.size()
 	var sound = sounds[rand_idx]
 	play_sound(sound)
 
-func play_sound(sound:AudioStream, sound_player:AudioStreamPlayer=self.sound_player):
+func play_sound(sound:AudioStream, sound_player:AudioStreamPlayer=assign_sound_player()):
 	sound_player.stream = sound
 	sound_player.play()
 
-func delete_sound_player(sound_player):
-	sound_player.queue_free()
+func unassign_sound_player(sound_player):
+	sound_player.get_parent().remove_child(sound_player)
+	sp_pool.push_back(sound_player)
 
-func create_sound_player(source=self):
+func create_sound_player():
 	var sound_player
-	if source is Node2D:
-		sound_player = AudioStreamPlayer2D.new()
-		sound_player.max_distance = 3
-		sound_player.attenuation = .05
-	else:
-		sound_player = AudioStreamPlayer.new()
+	sound_player = AudioStreamPlayer2D.new()
+	sound_player.max_distance = 3
+	sound_player.attenuation = .05
 	sound_player.autoplay = false
 	sound_player.volume_db = -10
+	return sound_player
+
+func assign_sound_player(source=self):
+	var sound_player = retrieve_sound_player()
 	source.add_child(sound_player)
 	return sound_player
+
+func retrieve_sound_player():
+	if (sp_pool.size()):
+		return sp_pool.pop_front()
+	else:
+		return create_sound_player()
 
 func load_audio_files_to(str_dir : String, file_list = null):
 	if (file_list == null):
