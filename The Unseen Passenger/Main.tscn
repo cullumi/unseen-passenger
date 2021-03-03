@@ -204,3 +204,4 @@ smoothing_enabled = true
 "detectable",
 ] instance=ExtResource( 15 )]
 position = Vector2( -777.818, 332.34 )
+[connection signal="cam_zoom" from="Player" to="PlayerCamera" method="smooth_zoom"]

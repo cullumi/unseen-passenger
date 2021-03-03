@@ -99,10 +99,10 @@ func _input(event):
 	elif event.is_action_pressed("player_sprint"):
 		if self.debug: print("Sprint!")
 		sprint = true
-		speed = sprint_speed
+#		speed = sprint_speed
 	elif event.is_action_released("player_sprint"):
 		sprint = false
-		speed = walk_speed
+#		speed = walk_speed
 	elif event.is_action_pressed("player_view_lock"):
 		lock_view = not lock_view
 	# Focus
@@ -127,6 +127,14 @@ func _process(_delta):
 		limbs.animation = "Idle"
 
 func _physics_process(_delta):
+	if sprint and not is_strafing():
+		speed = sprint_speed
+	elif sprint and is_strafing():
+		speed = (walk_speed+sprint_speed)/2 * 0.95
+	elif is_strafing():
+		speed = walk_speed*0.75
+	else:
+		speed = walk_speed
 	if (!is_on_floor()):
 		velocity.y = +gravity
 	else:
@@ -139,6 +147,9 @@ func _physics_process(_delta):
 	elif velocity.x == 0 and walk_audio_loop:
 		Audio.stop_sound_loop(walk_audio_loop)
 		walk_audio_loop = null
+
+func is_strafing():
+	return (is_flipped and move_dir.x > 0) or (not is_flipped and move_dir.x < 0)
 
 func update_view():
 	var look = look_dir
@@ -167,11 +178,19 @@ func update_view():
 	view_changed = false
 
 func update_focus():
-	focus_detector.look_at(get_global_mouse_position())
-	if (is_flipped):
-		focus_detector.rotation_degrees = clamp(focus_detector.rotation_degrees, 90, 270)
-	else:
-		focus_detector.rotation_degrees = clamp(focus_detector.rotation_degrees, -90, 90)
+	if (is_focusing):
+		focus_detector.look_at(get_global_mouse_position())
+		var rot = focus_detector.rotation_degrees
+		if rot > 270:
+			focus_detector.rotation_degrees = rot - 270 - 90
+		elif rot < -90:
+			focus_detector.rotation_degrees = rot + 90 + 270
+		if rot >= 90 and rot <= 270:
+			if not is_flipped:
+				set_flip_h(true)
+		elif rot >= -90 and rot < 90:
+			if is_flipped:
+				set_flip_h(false)
 
 func toggle_focus(active = null):
 	if (active == null):

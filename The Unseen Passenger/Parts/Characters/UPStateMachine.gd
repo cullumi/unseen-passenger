@@ -104,6 +104,7 @@ func state_stalking():
 	up.speed = up.sneak_speed
 	up.limbs.animation = "Walking"
 	up.set_flip_h(false)
+	reset_param("recent_blinks")
 	print("Stalking...")
 
 # --> fleeing
@@ -118,7 +119,7 @@ func transition_stalking_fleeing():
 func test_stalking_waiting():
 	return status.seen and status.player_near
 func transition_stalking_waiting():
-	UpStates.set_status("cautious", false)
+	set_status("cautious", false)
 	start(WAITING)
 
 # --> approaching

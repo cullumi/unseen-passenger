@@ -103,8 +103,8 @@ func detected(detected:bool):
 	if debug:
 		print("detected")
 	UpStates.set_status("seen", detected)
-	if (detected):
-		UpStates.reset_param("recent_blinks")
+#	if (detected):
+#		UpStates.reset_param("recent_blinks")
 
 func _detector_started_blink():
 	UpStates.set_status("detector_blinking", true)

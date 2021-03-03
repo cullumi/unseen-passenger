@@ -80,6 +80,7 @@ func play_rand_sound(sounds:Array, sound_player:AudioStreamPlayer=assign_sound_p
 	play_sound(sound)
 
 func play_sound(sound:AudioStream, sound_player:AudioStreamPlayer=assign_sound_player()):
+	print("Playing sound...")
 	sound_player.stream = sound
 	sound_player.play()
 
@@ -90,10 +91,10 @@ func unassign_sound_player(sound_player):
 func create_sound_player():
 	var sound_player
 	sound_player = AudioStreamPlayer2D.new()
-	sound_player.max_distance = 3
-	sound_player.attenuation = .05
+	sound_player.max_distance = 1000
+	sound_player.attenuation = 1
 	sound_player.autoplay = false
-	sound_player.volume_db = -10
+	sound_player.volume_db = 0
 	return sound_player
 
 func assign_sound_player(source=self):
