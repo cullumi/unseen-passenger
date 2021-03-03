@@ -26,33 +26,40 @@ onready var velocity = Vector2(0, gravity)
 var debug = true
 
 var in_player_range = false
+var walk_audio_loop = null
 
 func _ready():
 	UpStates.up = self
 	UpStates.start("stalking")
 
 func _process(delta):
+	update_player_range()
+	update_cornered()
 	var transitioned = UpStates.auto_transition()
 	if transitioned:
 		if debug: print("Transitioned to: " + transitioned)
-	UpStates.perform()
+#	UpStates.perform()
 
 func _physics_process(delta):
-	update_player_range()
-	update_cornered()
-	
 	if (!is_on_floor()):
 		velocity.y = +gravity
 	else:
 		velocity.y = 0
 		
 	velocity.x = dir.x * speed
-	velocity = move_and_slide(velocity)
+	velocity = move_and_slide(velocity, Vector2.UP)
 	
-	if (velocity.x != 0):
-		limbs.animation = "Walking"
-	else:
-		limbs.animation = "Idle"
+	if (velocity.x != 0 and not walk_audio_loop):
+		walk_audio_loop = Audio.start_sound_loop(Audio.CHAR_WALK, self)
+	elif velocity.x == 0 and walk_audio_loop:
+		Audio.stop_sound_loop(walk_audio_loop)
+		walk_audio_loop = null
+
+func leap_frog():
+	position.x = player.position.x + (player.position.x - position.x)
+
+func spooky_approach():
+	position.x += (player.position.x - position.x) / 2
 
 func set_flip_h(flipped):
 	body.set_flip_h(flipped)
@@ -61,6 +68,7 @@ func set_flip_h(flipped):
 func update_cornered():
 	var cornered = is_on_wall() and in_player_range and velocity.x < 0
 	UpStates.set_status("cornered", cornered)
+#	print(cornered)
 
 func update_player_range():
 	var close = player_detected(danger_radius)
@@ -69,7 +77,7 @@ func update_player_range():
 	self.in_player_range = medium
 	UpStates.set_status("player_close", close)
 #	UpStates.set_status("player_near", near and not close)
-	UpStates.set_status("player_near", medium and not close)
+	UpStates.set_status("player_near", near and not close)
 	UpStates.set_status("player_medium", medium and not near)
 	UpStates.set_status("player_far", not medium)
 
@@ -83,13 +91,6 @@ func player_detected(raycast : RayCast2D):
 func player_dir():
 	return player.move_dir
 
-func detected(detected:bool):
-	if debug:
-		print("detected")
-#		UpStates.print_state()
-#		UpStates.print_status()
-	UpStates.set_status("seen", detected)
-
 func start_caution_timer():
 	UpStates.set_status("cautious", true)
 	caution_timer.start(caution_time)
@@ -97,3 +98,23 @@ func start_caution_timer():
 func _on_Caution_Timer_timeout():
 	UpStates.set_status("cautious", false)
 	caution_timer.stop()
+
+func detected(detected:bool):
+	if debug:
+		print("detected")
+	UpStates.set_status("seen", detected)
+	if (detected):
+		UpStates.reset_param("recent_blinks")
+
+func _detector_started_blink():
+	UpStates.set_status("detector_blinking", true)
+
+func _detector_mid_blink(is_mid_blink):
+	print("Mid blink? " + String(is_mid_blink))
+	UpStates.set_status("detector_mid_blink", is_mid_blink)
+	if is_mid_blink:
+		UpStates.inc_param("recent_blinks")
+	UpStates.auto_transition()
+
+func _detector_finished_blink():
+	UpStates.set_status("detector_blinking", false)

@@ -1,35 +1,13 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://Textures/PlayerWalk2.png" type="Texture" id=2]
-[ext_resource path="res://Textures/PlayerWalk1.png" type="Texture" id=3]
-[ext_resource path="res://Textures/PlayerBase.png" type="Texture" id=4]
-[ext_resource path="res://Textures/PlayerRun1.png" type="Texture" id=5]
-[ext_resource path="res://Textures/Lights/SuperBigSightLines.png" type="Texture" id=6]
-[ext_resource path="res://Textures/Lights/SightLinesGuideBlack.png" type="Texture" id=7]
-[ext_resource path="res://Parts/Characters/FocusDetector.gd" type="Script" id=8]
+[ext_resource path="res://Parts/Characters/Player.gd" type="Script" id=1]
+[ext_resource path="res://Parts/Characters/CharacterAnim.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://Textures/Characters/PlayerBase.png" type="Texture" id=4]
+[ext_resource path="res://Parts/Characters/FocusDetector.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 18.2617
 height = 56.7352
-
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "Running",
-"speed": 9.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "Walking",
-"speed": 5.0
-} ]
 
 [node name="Player" type="KinematicBody2D" groups=[
 "player",
@@ -48,9 +26,9 @@ position = Vector2( 0, -8 )
 texture = ExtResource( 4 )
 
 [node name="LimbsAS" type="AnimatedSprite" parent="Sprites"]
-frames = SubResource( 2 )
+frames = ExtResource( 2 )
 animation = "Running"
-frame = 3
+frame = 2
 playing = true
 
 [node name="CamPivot" type="Position2D" parent="."]
@@ -58,30 +36,6 @@ playing = true
 [node name="CamTarget" type="Position2D" parent="CamPivot"]
 position = Vector2( 272.016, 0 )
 
-[node name="FocusPivot" type="Position2D" parent="."]
-position = Vector2( 0, -30.8681 )
-
-[node name="FocusGuide" type="Sprite" parent="FocusPivot"]
-light_mask = 0
-scale = Vector2( -1, 1 )
-texture = ExtResource( 7 )
-
-[node name="FocusCone" type="Light2D" parent="FocusPivot"]
-scale = Vector2( -0.75, 0.75 )
-texture = ExtResource( 6 )
-mode = 3
-range_item_cull_mask = 2
-shadow_item_cull_mask = 2
-
-[node name="FocusDetector" type="Area2D" parent="FocusPivot"]
-script = ExtResource( 8 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FocusPivot/FocusDetector"]
-scale = Vector2( -1, 1 )
-polygon = PoolVector2Array( 8.79913, 0.0531311, -614.328, 150.412, -613.5, -158.9 )
-
-[node name="FocusConeSprite" type="Sprite" parent="FocusPivot"]
-visible = false
-texture = ExtResource( 6 )
-[connection signal="body_entered" from="FocusPivot/FocusDetector" to="." method="_on_FocusDetector_body_entered"]
-[connection signal="body_exited" from="FocusPivot/FocusDetector" to="." method="_on_FocusDetector_body_exited"]
+[node name="FocusDetector" parent="." instance=ExtResource( 6 )]
+[connection signal="body_entered" from="FocusDetector" to="." method="_on_FocusDetector_body_entered"]
+[connection signal="body_exited" from="FocusDetector" to="." method="_on_FocusDetector_body_exited"]

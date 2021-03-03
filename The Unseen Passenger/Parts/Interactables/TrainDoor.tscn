@@ -5,7 +5,8 @@
 [ext_resource path="res://Textures/Door/DoorOpen1.png" type="Texture" id=3]
 [ext_resource path="res://Textures/Door/DoorOpen3.png" type="Texture" id=4]
 [ext_resource path="res://Textures/Door/DoorClosed.png" type="Texture" id=5]
-[ext_resource path="res://Parts/Door.gd" type="Script" id=6]
+[ext_resource path="res://Parts/Interactables/Door.gd" type="Script" id=6]
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

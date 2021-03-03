@@ -12,17 +12,17 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://Player.gd"
+"path": "res://Parts/Characters/Player.gd"
 }, {
 "base": "Object",
 "class": "UPState",
 "language": "GDScript",
-"path": "res://UPState.gd"
+"path": "res://Parts/Characters/UPState.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "UnseenPassenger",
 "language": "GDScript",
-"path": "res://Unseen Passenger.gd"
+"path": "res://Parts/Characters/Unseen Passenger.gd"
 } ]
 _global_script_class_icons={
 "Player": "",
@@ -38,12 +38,20 @@ config/icon="res://icon.png"
 
 [autoload]
 
-UpStates="*res://UPStateMachine.gd"
+UpStates="*res://Parts/Characters/UPStateMachine.gd"
+Audio="*res://Parts/Audio.gd"
 
 [display]
 
 window/size/width=960
 window/size/height=540
+
+[importer_defaults]
+
+ogg_vorbis={
+"loop": false,
+"loop_offset": 0
+}
 
 [input]
 

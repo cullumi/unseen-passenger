@@ -11,10 +11,7 @@ signal cam_zoom
 onready var body = $Sprites/BaseS
 onready var limbs = $Sprites/LimbsAS
 onready var cam_piv = $CamPivot
-onready var focus_piv = $FocusPivot
-onready var focus_cone = $FocusPivot/FocusCone
-onready var focus_guide = $FocusPivot/FocusGuide
-onready var focus_detector = $FocusPivot/FocusDetector
+onready var focus_detector = $FocusDetector
 onready var move_dir : Vector2 = Vector2()
 onready var look_dir : Vector2 = Vector2()
 onready var speed = walk_speed
@@ -37,6 +34,8 @@ var sprint = false
 var view_changed = false
 var is_focusing = false
 var focus_zoom_scale = 0.75
+
+var walk_audio_loop = null
 
 var debug = false
 
@@ -133,7 +132,13 @@ func _physics_process(_delta):
 	else:
 		velocity.y = 0
 	velocity.x = move_dir.x * speed
-	move_and_slide(velocity)
+	var ev = move_and_slide(velocity)
+	
+	if (velocity.x != 0 and not walk_audio_loop):
+		walk_audio_loop = Audio.start_sound_loop(Audio.CHAR_WALK, self)
+	elif velocity.x == 0 and walk_audio_loop:
+		Audio.stop_sound_loop(walk_audio_loop)
+		walk_audio_loop = null
 
 func update_view():
 	var look = look_dir
@@ -162,22 +167,22 @@ func update_view():
 	view_changed = false
 
 func update_focus():
-	focus_piv.look_at(get_global_mouse_position())
+	focus_detector.look_at(get_global_mouse_position())
 	if (is_flipped):
-		focus_piv.rotation_degrees = clamp(focus_piv.rotation_degrees, 90, 270)
+		focus_detector.rotation_degrees = clamp(focus_detector.rotation_degrees, 90, 270)
 	else:
-		focus_piv.rotation_degrees = clamp(focus_piv.rotation_degrees, -90, 90)
+		focus_detector.rotation_degrees = clamp(focus_detector.rotation_degrees, -90, 90)
 
 func toggle_focus(active = null):
 	if (active == null):
 		active = !is_focusing
 	is_focusing = active
-	focus_cone.enabled = active
-	focus_guide.visible = active
 	focus_detector.set_active(active)
 	if (is_focusing):
+		focus_detector.start_blinking()
 		emit_signal("cam_zoom", focus_zoom_scale)
 	else:
+		focus_detector.stop_blinking()
 		emit_signal("cam_zoom")
 
 func set_flip_h(flipped:bool):
@@ -211,9 +216,11 @@ func adjust_dir_vector(dir1: Vector2, dir2 : Vector2, weight: int = 0, debug : b
 
 
 func _on_FocusDetector_body_entered(body):
-	if (body.is_in_group("detectable")):
-		body.detected(true)
+#	if (body.is_in_group("detectable")):
+#		body.detected(true)
+	pass
 
 func _on_FocusDetector_body_exited(body):
 	if (body.is_in_group("detectable")):
 		body.detected(false)
+	pass

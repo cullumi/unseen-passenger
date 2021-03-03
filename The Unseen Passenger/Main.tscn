@@ -4,7 +4,7 @@
 [ext_resource path="res://Textures/Parallax/MountainsPB.png" type="Texture" id=2]
 [ext_resource path="res://Textures/Parallax/CloudsPB.png" type="Texture" id=3]
 [ext_resource path="res://Textures/Parallax/HillsPB.png" type="Texture" id=4]
-[ext_resource path="res://ParallaxBackground.gd" type="Script" id=5]
+[ext_resource path="res://Parts/ParallaxBackground.gd" type="Script" id=5]
 [ext_resource path="res://Textures/Parallax/Tracks.png" type="Texture" id=6]
 [ext_resource path="res://Textures/Parallax/TrainFrontWall.png" type="Texture" id=7]
 [ext_resource path="res://Textures/Parallax/TrainBackWall.png" type="Texture" id=8]
@@ -15,9 +15,9 @@
 [ext_resource path="res://Textures/SteeringWheel.png" type="Texture" id=13]
 [ext_resource path="res://Parts/Characters/Player.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Parts/Characters/Unseen Passenger.tscn" type="PackedScene" id=15]
-[ext_resource path="res://PlayerCamera.gd" type="Script" id=18]
-[ext_resource path="res://Parts/TrainDoor.tscn" type="PackedScene" id=20]
-[ext_resource path="res://Parts/Button.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Parts/Characters/PlayerCamera.gd" type="Script" id=18]
+[ext_resource path="res://Parts/Interactables/TrainDoor.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Parts/Interactables/Button.tscn" type="PackedScene" id=21]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 15.1911
@@ -204,4 +204,3 @@ smoothing_enabled = true
 "detectable",
 ] instance=ExtResource( 15 )]
 position = Vector2( -777.818, 332.34 )
-[connection signal="cam_zoom" from="Player" to="PlayerCamera" method="smooth_zoom"]

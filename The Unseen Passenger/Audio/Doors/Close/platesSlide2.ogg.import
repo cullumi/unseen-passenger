@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/platesSlide2.ogg-69b15ef7743e9df59b4a674db0988e35.oggstr"
+
+[deps]
+
+source_file="res://Audio/Doors/Close/platesSlide2.ogg"
+dest_files=[ "res://.import/platesSlide2.ogg-69b15ef7743e9df59b4a674db0988e35.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

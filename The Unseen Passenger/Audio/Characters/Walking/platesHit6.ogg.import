@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/platesHit6.ogg-f4043f26d9a2210f7b8722e56c61e987.oggstr"
+
+[deps]
+
+source_file="res://Audio/Characters/Walking/platesHit6.ogg"
+dest_files=[ "res://.import/platesHit6.ogg-f4043f26d9a2210f7b8722e56c61e987.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
