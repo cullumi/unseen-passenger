@@ -66,6 +66,7 @@ func set_state(state:String):
 	self.state = state
 
 func start(state:String):
+	print("Next is: " + state)
 	set_state(state)
 	perform()
 
@@ -140,7 +141,7 @@ func state_fleeing():
 
 # --> waiting
 func test_fleeing_waiting():
-	return not status.seen and (status.cornered or status.player_far)
+	return not status.seen or status.player_far or status.cornered
 func transition_fleeing_waiting():
 	up.start_caution_timer()
 	start(WAITING)
@@ -168,7 +169,7 @@ func transition_waiting_stalking():
 
 # --> fleeing
 func test_waiting_fleeing():
-	return status.seen and status.player_close
+	return status.seen and (status.player_close or (status.cautious and status.player_far))
 func transition_waiting_fleeing():
 	start(FLEEING)
 

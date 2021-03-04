@@ -25,6 +25,7 @@ onready var velocity = Vector2(0, gravity)
 
 var debug = true
 
+var cornered = false
 var in_player_range = false
 var walk_audio_loop = null
 
@@ -34,7 +35,6 @@ func _ready():
 
 func _process(delta):
 	update_player_range()
-	update_cornered()
 	var transitioned = UpStates.auto_transition()
 	if transitioned:
 		if debug: print("Transitioned to: " + transitioned)
@@ -47,13 +47,15 @@ func _physics_process(delta):
 		velocity.y = 0
 		
 	velocity.x = dir.x * speed
-	velocity = move_and_slide(velocity, Vector2.UP)
+	var ev = move_and_slide(velocity, Vector2.UP)
 	
-#	if (velocity.x != 0 and not walk_audio_loop):
-#		walk_audio_loop = Audio.start_sound_loop(Audio.CHAR_WALK, self)
-#	elif velocity.x == 0 and walk_audio_loop:
-#		Audio.stop_sound_loop(walk_audio_loop)
-#		walk_audio_loop = null
+	update_cornered()
+	
+	if (velocity.x != 0 and not walk_audio_loop and not cornered):
+		walk_audio_loop = Audio.start_sound_loop(Audio.CHAR_WALK, self)
+	elif(velocity.x == 0 or cornered) and walk_audio_loop and not walk_audio_loop.is_playing():
+		Audio.stop_sound_loop(walk_audio_loop)
+		walk_audio_loop = null
 
 func leap_frog():
 	position.x = player.position.x + (player.position.x - position.x)
@@ -68,6 +70,7 @@ func set_flip_h(flipped):
 func update_cornered():
 	var cornered = is_on_wall() and in_player_range and velocity.x < 0
 	UpStates.set_status("cornered", cornered)
+	self.cornered = cornered
 #	print(cornered)
 
 func update_player_range():

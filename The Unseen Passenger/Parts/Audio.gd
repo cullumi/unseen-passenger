@@ -44,7 +44,7 @@ func sounds_present():
 	return true
 
 func start_sound_loop(sounds_key, source=self):
-	print(source.name + " started sound loop.")
+#	print(source.name + " started sound loop.")
 	var sound_player = assign_sound_player(source)
 	loops[sound_player] = true
 	sound_loop(soundLists[sounds_key], sound_player)
@@ -70,17 +70,17 @@ func clear_loop(sound_player):
 	unassign_sound_player(sound_player)
 
 func stop_sound_loop(sound_loop):
-	print(sound_loop.get_parent().name + " tried to stop sound loop.")
+#	print(sound_loop.get_parent().name + " tried to stop sound loop.")
 	loops[sound_loop] = false
 
-func play_rand_sound(sounds:Array, sound_player:AudioStreamPlayer=assign_sound_player()):
+func play_rand_sound(sounds:Array, sound_player):
 	randomize()
 	var rand_idx = randi() % sounds.size()
 	var sound = sounds[rand_idx]
-	play_sound(sound)
+	play_sound(sound, sound_player)
 
-func play_sound(sound:AudioStream, sound_player:AudioStreamPlayer=assign_sound_player()):
-	print("Playing sound...")
+func play_sound(sound:AudioStream, sound_player):
+#	print("Playing sound...")
 	sound_player.stream = sound
 	sound_player.play()
 
@@ -94,12 +94,14 @@ func create_sound_player():
 	sound_player.max_distance = 1000
 	sound_player.attenuation = 1
 	sound_player.autoplay = false
-	sound_player.volume_db = 0
+	sound_player.volume_db = -20
 	return sound_player
 
 func assign_sound_player(source=self):
+#	print("Assign sound_player to: ", source.name)
 	var sound_player = retrieve_sound_player()
 	source.add_child(sound_player)
+	sound_player.position = Vector2()
 	return sound_player
 
 func retrieve_sound_player():
