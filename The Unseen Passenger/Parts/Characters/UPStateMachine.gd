@@ -20,7 +20,7 @@ onready var states:Dictionary = {
 	"waiting": UPState.new(self, "waiting", [STALKING, FLEEING, APPROACHING, TELEPORTING]),
 	"approaching": UPState.new(self, "approaching", [STALKING, FLEEING, TELEPORTING]),
 	"runforit":UPState.new(self, "runforit", []),
-	"teleporting": UPState.new(self, "teleporting", [LAST]),
+	"teleporting": UPState.new(self, "teleporting", [LAST, TELEPORTING]),
 }
 
 # Statuses
@@ -203,11 +203,12 @@ func state_approaching():
 func test_approaching_stalking():
 	return not status.seen or status.player_far
 func transition_approaching_stalking():
+	status.confrontational = false
 	start(STALKING)
 
 # --> fleeing
 func test_approaching_fleeing():
-	return status.seen and status.player_close
+	return status.seen and status.player_close and not status.confrontational
 func transition_approaching_fleeing():
 	start(FLEEING)
 
@@ -215,13 +216,14 @@ func transition_approaching_fleeing():
 func test_approaching_teleporting():
 	return status.seen and status.detector_mid_blink
 func transition_approaching_teleporting():
+	status.confrontational = true
 	start(TELEPORTING)
 
 
 # RunForIt
 
 func state_runforit():
-	up.dir.x = 1
+	up.dir.x = 1.5
 	up.speed = up.forward_speed
 	up.limbs.animation = "Running"
 	up.set_flip_h(false)
@@ -231,12 +233,14 @@ func state_runforit():
 
 func state_teleporting():
 	var rand = randi()
-	if not rand % clamp(5 - params.recent_blinks, 1, 100):
-		if status.player_close:
+	var mod_close = 4 if status.player_close else 1
+	var mod_near = 2 if status.player_near else 1
+	if not rand % clamp(5 - (params.recent_blinks * mod_close * mod_near), 1, 100):
+		if not status.player_close:
+			up.spooky_approach()
+		else:
 			up.leap_frog()
 			start(RUNFORIT)
-		else:
-			up.spooky_approach()
 	else:
 		up.speed = 0
 		up.limbs.animation = "Idle"
@@ -244,6 +248,13 @@ func state_teleporting():
 
 # --> last state
 func test_teleporting_last():
-	return status.seen and not status.detector_mid_blink
+	return status.seen and not status.detector_mid_blink and not status.player_close
 func transition_teleporting_last():
 	start_last()
+
+# --> self
+func test_teleporting_teleporting():
+	return status.seen and not status.detector_mid_blink and status.player_close
+func transition_teleporting_teleporting():
+	print("Teleport Again")
+	start(TELEPORTING)
