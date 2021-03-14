@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Textures/Parallax/SkyPB.png" type="Texture" id=1]
 [ext_resource path="res://Textures/Parallax/MountainsPB.png" type="Texture" id=2]
@@ -15,7 +15,8 @@
 [ext_resource path="res://Textures/SteeringWheel.png" type="Texture" id=13]
 [ext_resource path="res://Parts/Characters/Player.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Parts/Characters/Unseen Passenger.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Parts/Characters/PlayerCamera.gd" type="Script" id=18]
+[ext_resource path="res://Parts/Characters/PlayerCamera.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Char State Refactor/Character Scenes/NewPlayer.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Parts/Interactables/TrainDoor.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Parts/Interactables/Button.tscn" type="PackedScene" id=21]
 
@@ -187,21 +188,18 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 10 )
 offset = Vector2( 0, 135 )
 
-[node name="PlayerCamera" type="Position2D" parent="."]
-position = Vector2( 480, 270 )
-script = ExtResource( 18 )
-target_path = NodePath("../Player/CamPivot/CamTarget")
+[node name="PlayerCamera" parent="." instance=ExtResource( 16 )]
+target_path = NodePath("../Player")
 
-[node name="Camera2D" type="Camera2D" parent="PlayerCamera"]
-current = true
-smoothing_enabled = true
+[node name="OldPlayer" parent="." instance=ExtResource( 14 )]
 
-[node name="Tween" type="Tween" parent="PlayerCamera"]
-
-[node name="Player" parent="." instance=ExtResource( 14 )]
+[node name="Player" parent="." instance=ExtResource( 17 )]
+controlled = true
 
 [node name="Unseen Passenger" parent="." groups=[
 "detectable",
 ] instance=ExtResource( 15 )]
 position = Vector2( -777.818, 332.34 )
+player_path = NodePath("../OldPlayer")
+[connection signal="cam_zoom" from="OldPlayer" to="PlayerCamera" method="smooth_zoom"]
 [connection signal="cam_zoom" from="Player" to="PlayerCamera" method="smooth_zoom"]

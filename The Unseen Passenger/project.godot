@@ -24,10 +24,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Char State Refactor/CharacterScripts/Character.gd"
 }, {
+"base": "PlayState",
+"class": "FocusPlayState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Player/focus_play_state.gd"
+}, {
 "base": "CharState",
 "class": "IdleCharState",
 "language": "GDScript",
 "path": "res://Char State Refactor/State/Character/idle_char_state.gd"
+}, {
+"base": "PlayState",
+"class": "IdlePlayState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Player/idle_play_state.gd"
 }, {
 "base": "State",
 "class": "IdleState",
@@ -39,10 +49,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Char State Refactor/State/persistent_state.gd"
 }, {
+"base": "StateFactory",
+"class": "PlayFactory",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Player/play_factory.gd"
+}, {
+"base": "State",
+"class": "PlayState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Player/play_state.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://Parts/Characters/Player.gd"
+}, {
+"base": "Node",
+"class": "PlayerInput",
+"language": "GDScript",
+"path": "res://Char State Refactor/CharacterScripts/PlayerInput.gd"
+}, {
+"base": "Character",
+"class": "PlayerNew",
+"language": "GDScript",
+"path": "res://Char State Refactor/CharacterScripts/NewPlayer.gd"
 }, {
 "base": "CharState",
 "class": "RunCharState",
@@ -78,22 +108,40 @@ _global_script_classes=[ {
 "class": "UnseenPassenger",
 "language": "GDScript",
 "path": "res://Parts/Characters/Unseen Passenger.gd"
+}, {
+"base": "Object",
+"class": "Vectors",
+"language": "GDScript",
+"path": "res://Vectors.gd"
+}, {
+"base": "CharState",
+"class": "WalkCharState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Character/walk_char_state.gd"
 } ]
 _global_script_class_icons={
 "CharFactory": "",
 "CharState": "",
 "Character": "",
+"FocusPlayState": "",
 "IdleCharState": "",
+"IdlePlayState": "",
 "IdleState": "",
 "PersistentState": "",
+"PlayFactory": "",
+"PlayState": "",
 "Player": "",
+"PlayerInput": "",
+"PlayerNew": "",
 "RunCharState": "",
 "RunState": "",
 "State": "",
 "StateFactory": "",
 "StateMachine": "",
 "UPState": "",
-"UnseenPassenger": ""
+"UnseenPassenger": "",
+"Vectors": "",
+"WalkCharState": ""
 }
 
 [application]
@@ -111,6 +159,7 @@ Audio="*res://Parts/Audio.gd"
 
 window/size/width=960
 window/size/height=540
+window/stretch/mode="2d"
 
 [importer_defaults]
 

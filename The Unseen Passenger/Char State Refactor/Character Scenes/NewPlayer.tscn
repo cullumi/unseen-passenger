@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Parts/Characters/Player.gd" type="Script" id=1]
+[ext_resource path="res://Char State Refactor/CharacterScripts/NewPlayer.gd" type="Script" id=1]
 [ext_resource path="res://Parts/Characters/CharacterAnim.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://Textures/Characters/PlayerBase.png" type="Texture" id=4]
 [ext_resource path="res://Parts/Characters/FocusDetector.tscn" type="PackedScene" id=6]
@@ -27,8 +27,7 @@ texture = ExtResource( 4 )
 
 [node name="LimbsAS" type="AnimatedSprite" parent="Sprites"]
 frames = ExtResource( 2 )
-animation = "Running"
-frame = 3
+animation = "Idle"
 playing = true
 
 [node name="CamPivot" type="Position2D" parent="."]

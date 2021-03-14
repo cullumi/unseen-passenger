@@ -2,12 +2,15 @@ extends CharState
 
 class_name IdleCharState
 
-onready var character:Character = source
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	character.speed = 0
-	character.legs.play(character.ANIM_IDLE)
+	print("Begin Idling")
+	character.wait()
 
-func _flip_direction():
-	character.set_flip_h(not character.flipped)
+func set_move_dir(move_dir):
+	character.move_dir = move_dir
+	if character.moving_horizontal():
+		if character.sprint:
+			change_state("run")
+		else:
+			change_state("walk")

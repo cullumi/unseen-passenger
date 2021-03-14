@@ -5,6 +5,7 @@ extends KinematicBody2D
 export (float) var walk_speed = 100
 export(float) var sprint_speed = 300
 export (float) var gravity = 200
+export (bool) var controlled = false
 
 signal cam_zoom
 
@@ -52,103 +53,105 @@ func _ready():
 #		print("Keyboard")
 
 func _input(event):
-	
-	var move_state_changed = false
-	var m_dir = Vector2()
-	var adj_weight = PREFER_NEW
-	
-#	m_dir = Input.get_vector("move_left", "move_right").normalized()
-	
-	# Moving
-	if event.is_action_pressed("move_left") : 
-		if self.debug: print("Move left...")
-		move_left = true
-		m_dir = Vector2.LEFT
-		move_state_changed = true
-	elif event.is_action_released("move_left"):
-		move_left = false
-		m_dir = Vector2.RIGHT
-		adj_weight = MASK_NEW
-		move_state_changed = true
-	elif event.is_action_pressed("move_right"):
-		if self.debug: print("Move right...")
-		move_right = true
-		m_dir = Vector2.RIGHT
-		move_state_changed = true
-	elif event.is_action_released("move_right"):
-		move_right = false
-		move_left = false
-		m_dir = Vector2.LEFT
-		adj_weight = MASK_NEW
-		move_state_changed = true
-	# Looking
-	elif event.is_action_pressed("look_left"):
-		look_left = true
-	elif event.is_action_released("look_left"):
-		look_left = false
-	elif event.is_action_pressed("look_right"):
-		look_right = true
-	elif event.is_action_released("look_right"):
-		look_right = false
-	elif event.is_action_pressed("look_up"):
-		look_up = true
-	elif event.is_action_released("look_up"):
-		look_up = false
-	elif event.is_action_pressed("look_down"):
-		look_down = true
-	elif event.is_action_released("look_down"):
-		look_down = false
-	elif event.is_action_pressed("player_sprint"):
-		if self.debug: print("Sprint!")
-		sprint = true
-#		speed = sprint_speed
-	elif event.is_action_released("player_sprint"):
-		sprint = false
-#		speed = walk_speed
-	elif event.is_action_pressed("player_view_lock"):
-		lock_view = not lock_view
-	# Focus
-	elif (event.is_action_pressed("player_focus")):
-		toggle_focus(true)
-	elif (event.is_action_released("player_focus")):
-		toggle_focus(false)
-	
-	if move_state_changed:
-		move_dir = adjust_dir_vector(move_dir, m_dir, adj_weight)
+	if (controlled):
+		var move_state_changed = false
+		var m_dir = Vector2()
+		var adj_weight = PREFER_NEW
+		
+	#	m_dir = Input.get_vector("move_left", "move_right").normalized()
+		
+		# Moving
+		if event.is_action_pressed("move_left") : 
+			if self.debug: print("Move left...")
+			move_left = true
+			m_dir = Vector2.LEFT
+			move_state_changed = true
+		elif event.is_action_released("move_left"):
+			move_left = false
+			m_dir = Vector2.RIGHT
+			adj_weight = MASK_NEW
+			move_state_changed = true
+		elif event.is_action_pressed("move_right"):
+			if self.debug: print("Move right...")
+			move_right = true
+			m_dir = Vector2.RIGHT
+			move_state_changed = true
+		elif event.is_action_released("move_right"):
+			move_right = false
+			move_left = false
+			m_dir = Vector2.LEFT
+			adj_weight = MASK_NEW
+			move_state_changed = true
+		# Looking
+		elif event.is_action_pressed("look_left"):
+			look_left = true
+		elif event.is_action_released("look_left"):
+			look_left = false
+		elif event.is_action_pressed("look_right"):
+			look_right = true
+		elif event.is_action_released("look_right"):
+			look_right = false
+		elif event.is_action_pressed("look_up"):
+			look_up = true
+		elif event.is_action_released("look_up"):
+			look_up = false
+		elif event.is_action_pressed("look_down"):
+			look_down = true
+		elif event.is_action_released("look_down"):
+			look_down = false
+		elif event.is_action_pressed("player_sprint"):
+			if self.debug: print("Sprint!")
+			sprint = true
+	#		speed = sprint_speed
+		elif event.is_action_released("player_sprint"):
+			sprint = false
+	#		speed = walk_speed
+		elif event.is_action_pressed("player_view_lock"):
+			lock_view = not lock_view
+		# Focus
+		elif (event.is_action_pressed("player_focus")):
+			toggle_focus(true)
+		elif (event.is_action_released("player_focus")):
+			toggle_focus(false)
+		
+		if move_state_changed:
+			move_dir = adjust_dir_vector(move_dir, m_dir, adj_weight)
 #		print(move_dir)
 
 func _process(_delta):
-	update_view()
-	update_focus()
-	if (velocity.x != 0):
-		if (speed == walk_speed):
-			limbs.animation = "Walking"
+	if (controlled):
+		update_view()
+		update_focus()
+		if (velocity.x != 0):
+			if (speed == walk_speed):
+				limbs.animation = "Walking"
+			else:
+				limbs.animation = "Running"
 		else:
-			limbs.animation = "Running"
-	else:
-		limbs.animation = "Idle"
+			limbs.animation = "Idle"
 
 func _physics_process(_delta):
-	if sprint and not is_strafing():
-		speed = sprint_speed
-	elif sprint and is_strafing():
-		speed = (walk_speed+sprint_speed)/2 * 0.95
-	elif is_strafing():
-		speed = walk_speed*0.75
-	else:
-		speed = walk_speed
-	if (!is_on_floor()):
-		velocity.y = +gravity
-	else:
-		velocity.y = 0
-	velocity.x = move_dir.x * speed
-	var ev = move_and_slide(velocity)
-	
-	if (velocity.x != 0 and not walk_audio_loop):
-		walk_audio_loop = Audio.start_sound_loop(Audio.CHAR_WALK, self)
-	elif velocity.x == 0 and walk_audio_loop:
-		Audio.stop_sound_loop(walk_audio_loop)
-		walk_audio_loop = null
+	if (controlled):
+		if sprint and not is_strafing():
+			speed = sprint_speed
+		elif sprint and is_strafing():
+			speed = (walk_speed+sprint_speed)/2 * 0.95
+		elif is_strafing():
+			speed = walk_speed*0.75
+		else:
+			speed = walk_speed
+		if (!is_on_floor()):
+			velocity.y = +gravity
+		else:
+			velocity.y = 0
+		velocity.x = move_dir.x * speed
+		var ev = move_and_slide(velocity)
+		
+		if (velocity.x != 0 and not walk_audio_loop):
+			walk_audio_loop = Audio.start_sound_loop(Audio.CHAR_WALK, self)
+		elif velocity.x == 0 and walk_audio_loop:
+			Audio.stop_sound_loop(walk_audio_loop)
+			walk_audio_loop = null
 
 func is_strafing():
 	return (is_flipped and move_dir.x > 0) or (not is_flipped and move_dir.x < 0)
@@ -242,6 +245,7 @@ func _on_FocusDetector_body_entered(body):
 	pass
 
 func _on_FocusDetector_body_exited(body):
-	if (body.is_in_group("detectable")):
-		body.detected(false)
+	if (controlled):
+		if (body.is_in_group("detectable")):
+			body.detected(false)
 	pass

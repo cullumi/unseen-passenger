@@ -10,57 +10,81 @@ export (float) var gravity = 200
 
 onready var body = $Sprites/BaseS
 onready var limbs:AnimatedSprite = $Sprites/LimbsAS
-
-var move_dir:Vector2 = Vector2()
-var look_dir:Vector2 = Vector2()
-var speed:float  = walk_speed
-var velocity:Vector2 = Vector2(0, gravity)
-var is_flipped:bool = false
-var lock_view:bool = false
-
-var walk_audio_loop = null
+var flippable:Array = []
 
 const ANIM_WALK = "Walking"
 const ANIM_RUN = "Running"
 const ANIM_IDLE = "Idle"
 
-# Inputs
-var sprint = false
-var view_changed = false
-var is_focusing = false
-var focus_zoom_scale = 0.75
+var move_dir:Vector2 = Vector2()
+var base_speed:float = walk_speed
+var speed:float  = walk_speed
+var velocity:Vector2 = Vector2(0, gravity)
+var is_flipped:bool = false
+var sprint:bool = false
+
+var walk_audio_loop = null
 
 # State
 
-var state
+var move_state
 
-func _ready() : state = PersistentState.new(self, CharFactory)
-func set_sprint(sprint) : state.execute("toggle_sprint", sprint)
-func toggle_view_lock() : state.execute("toggle_view_lock")
+func _ready() : 
+	move_state = PersistentState.new(self, CharFactory)
+	add_child(move_state)
+
+func set_move_dir(move_dir) : move_state.execute("set_move_dir", move_dir)
+func set_sprint(sprint) : move_state.execute("set_sprint", sprint)
+func flip_char_direction() : move_state.execute("flip_direction")
 
 # High Level Movement
 
 func sneak():
+	print("Sneaking")
+	base_speed = sneak_speed
 	speed = sneak_speed
-	limbs.animation = ANIM_WALK
+	limbs.play(ANIM_WALK)
 
 func walk():
+	print("Walking")
+	base_speed = walk_speed
 	speed = walk_speed
-	limbs.animation = ANIM_WALK
+	limbs.play(ANIM_WALK)
 
 func run():
+	print("Running")
+	base_speed = sprint_speed
 	speed = sprint_speed
-	limbs.animation = ANIM_RUN
+	limbs.play(ANIM_RUN)
 
-func idle():
+func wait():
+	print("Idling")
+	base_speed = base_speed
 	speed = 0
-	limbs.animation = ANIM_IDLE
+	limbs.play(ANIM_IDLE)
 
-func is_strafing():
-	return (is_flipped and move_dir.x > 0) or (not is_flipped and move_dir.x < 0)
+func strafe(target_speed=null):
+	print("Strafing")
+	if target_speed:
+		speed = (base_speed + target_speed)/2 * strafe_modifier
+	else:
+		speed = base_speed * strafe_modifier
 
+func is_sprinting()		: return sprint and moving_horizontal()
+func is_strafing()		: return (is_flipped and move_dir.x > 0) or (not is_flipped and move_dir.x < 0)
+func moving() 			: return Vectors.non_zero(move_dir)
+func moving_horizontal(): return Vectors.non_zero_x(move_dir)
+func moving_vertical() 	: return Vectors.non_zero_y(move_dir)
+func moving_left() 		: return Vectors.negative_x(move_dir)
+func moving_right() 	: return Vectors.positive_x(move_dir)
+func moving_up() 		: return Vectors.positive_y(move_dir)
+func moving_down() 		: return Vectors.negative_y(move_dir)
+func moving_along(axis_mask:Vector2) : return Vectors.aimed_along(move_dir, axis_mask)
 
 # Low Level Movement
+
+func flip_direction():
+	flip_char_direction()
 
 func construct_velocity():
 	if (!is_on_floor()):
