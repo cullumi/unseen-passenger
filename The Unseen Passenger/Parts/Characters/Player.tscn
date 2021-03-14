@@ -28,7 +28,7 @@ texture = ExtResource( 4 )
 [node name="LimbsAS" type="AnimatedSprite" parent="Sprites"]
 frames = ExtResource( 2 )
 animation = "Running"
-frame = 4
+frame = 2
 playing = true
 
 [node name="CamPivot" type="Position2D" parent="."]

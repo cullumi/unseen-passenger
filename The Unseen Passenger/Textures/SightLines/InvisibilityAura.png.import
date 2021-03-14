@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SightLineIndicator.png-8c2cea8a08b7012e8f66b3a6a0f8ac67.stex"
+path="res://.import/InvisibilityAura.png-a6071a19c145e2740b0a9e73466c0e0c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Lights/SightLineIndicator.png"
-dest_files=[ "res://.import/SightLineIndicator.png-8c2cea8a08b7012e8f66b3a6a0f8ac67.stex" ]
+source_file="res://Textures/SightLines/InvisibilityAura.png"
+dest_files=[ "res://.import/InvisibilityAura.png-a6071a19c145e2740b0a9e73466c0e0c.stex" ]
 
 [params]
 

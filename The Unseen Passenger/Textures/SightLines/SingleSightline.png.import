@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SightLinesGuideBlack.png-71d5b43b358611c2466aa605559c415b.stex"
+path="res://.import/SingleSightline.png-79712cea56718335a4e01de4441b3bc8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Lights/SightLinesGuideBlack.png"
-dest_files=[ "res://.import/SightLinesGuideBlack.png-71d5b43b358611c2466aa605559c415b.stex" ]
+source_file="res://Textures/SightLines/SingleSightline.png"
+dest_files=[ "res://.import/SingleSightline.png-79712cea56718335a4e01de4441b3bc8.stex" ]
 
 [params]
 

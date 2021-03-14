@@ -24,6 +24,8 @@ const PREFER_OLD = -1
 const NEUTRAL = 0
 const PREFER_NEW = 1
 const MASK_OLD = 2
+
+# Inputs
 var move_left = false
 var move_right = false
 var look_left = false

@@ -9,10 +9,65 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "StateFactory",
+"class": "CharFactory",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Character/char_factory.gd"
+}, {
+"base": "State",
+"class": "CharState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Character/char_state.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Character",
+"language": "GDScript",
+"path": "res://Char State Refactor/CharacterScripts/Character.gd"
+}, {
+"base": "CharState",
+"class": "IdleCharState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Character/idle_char_state.gd"
+}, {
+"base": "State",
+"class": "IdleState",
+"language": "GDScript",
+"path": "res://Char State Refactor/StateExamples/idle_state.gd"
+}, {
+"base": "Node",
+"class": "PersistentState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/persistent_state.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://Parts/Characters/Player.gd"
+}, {
+"base": "CharState",
+"class": "RunCharState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Character/run_char_state.gd"
+}, {
+"base": "State",
+"class": "RunState",
+"language": "GDScript",
+"path": "res://Char State Refactor/StateExamples/run_state.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/state.gd"
+}, {
+"base": "Reference",
+"class": "StateFactory",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/state_factory.gd"
+}, {
+"base": "Object",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://Char State Refactor/StateExamples/StateMachine.gd"
 }, {
 "base": "Object",
 "class": "UPState",
@@ -25,7 +80,18 @@ _global_script_classes=[ {
 "path": "res://Parts/Characters/Unseen Passenger.gd"
 } ]
 _global_script_class_icons={
+"CharFactory": "",
+"CharState": "",
+"Character": "",
+"IdleCharState": "",
+"IdleState": "",
+"PersistentState": "",
 "Player": "",
+"RunCharState": "",
+"RunState": "",
+"State": "",
+"StateFactory": "",
+"StateMachine": "",
 "UPState": "",
 "UnseenPassenger": ""
 }
