@@ -11,19 +11,18 @@ onready var focus_cone = $FocusCone
 onready var focus_guide = $FocusGuide
 onready var blink_timer:Timer = $BlinkDelayTimer
 
-var blinking = false
+var is_blinking = false
 var blink = false
 var active = false
 var last_change = null
 
-signal started_blink
+signal blinking
 signal mid_blink
-signal finished_blink
 signal body_entered
 signal body_exited
 
 func _process(delta):
-	if blinking:
+	if is_blinking:
 		if not blink and blink_timer.is_stopped():
 			blink_timer.start(rand_range(0, blink_rate_max))
 	if blink:
@@ -38,18 +37,18 @@ func set_active(active:bool):
 func blink():
 	blink_level = 0
 	blink = true
-	emit_signal("started_blink")
+	emit_signal("blinking", true)
 
 func stop_blink():
 	blink_level = 0
 	blink = false
-	emit_signal("finished_blink")
+	emit_signal("blinking", false)
 
 func start_blinking():
-	blinking = true
+	is_blinking = true
 
 func stop_blinking():
-	blinking = false
+	is_blinking = false
 
 func process_blink(delta):
 	var change = delta * blink_speed
@@ -64,8 +63,8 @@ func process_blink(delta):
 		stop_blink()
 	last_change = change
 
-func display_blink(blink_level):
-	var blink_stage = abs((blink_level-0.5) * 2)
+func display_blink(level):
+	var blink_stage = abs((level-0.5) * 2)
 	focus_cone.scale.y = clamp(blink_stage * blink_scale, 0.2, blink_scale)
 	focus_cone.color.a = blink_stage
 	focus_guide.scale.y = blink_stage * blink_scale
@@ -73,18 +72,18 @@ func display_blink(blink_level):
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("detectable")):
-		body.detected(true)
-		connect("started_blink", body, "_detector_started_blink")
+#		body.detected(true)
+		body.detect() 
+		connect("blinking", body, "_detector_blinking")
 		connect("mid_blink", body, "_detector_mid_blink")
-		connect("finished_blink", body, "_detector_finished_blink")
 	emit_signal("body_entered", body)
 
 func _on_Area2D_body_exited(body):
 	if (body.is_in_group("detectable")):
-		body.detected(false)
-		disconnect("started_blink", body, "_detector_started_blink")
+#		body.detected(false)
+		body.stop_detecting()
+		disconnect("blinking", body, "_detector_blinking")
 		disconnect("mid_blink", body, "_detector_mid_blink")
-		disconnect("finished_blink", body, "_detector_finished_blink")
 	emit_signal("body_exited", body)
 
 func _on_BlinkDelayTimer_timeout():

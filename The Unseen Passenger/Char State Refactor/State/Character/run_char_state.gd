@@ -23,7 +23,6 @@ func set_sprint(sprint:bool):
 
 func set_move_dir(move_dir):
 	character.move_dir = move_dir
-	print(character.moving_horizontal())
 	if character.moving_horizontal():
 		if not character.sprint: 
 			change_state("walk")

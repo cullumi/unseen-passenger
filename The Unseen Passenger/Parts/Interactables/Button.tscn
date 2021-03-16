@@ -8,7 +8,6 @@
 [ext_resource path="res://Parts/Interactables/Button.gd" type="Script" id=6]
 [ext_resource path="res://Textures/Button/ButtonHighlight.png" type="Texture" id=7]
 
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 3 ) ],
@@ -16,14 +15,14 @@ animations = [ {
 "name": "CanClose",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "CanOpen",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "Automatic",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "CanOpen",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],

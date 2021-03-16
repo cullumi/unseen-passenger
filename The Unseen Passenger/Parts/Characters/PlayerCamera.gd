@@ -1,6 +1,6 @@
 extends Position2D
 
-export (NodePath) var target_path
+export (NodePath) var target_path = "../Player/CamPivot/CamTarget"
 onready var target = get_node(target_path)
 onready var camera = $Camera2D
 onready var tween = $Tween

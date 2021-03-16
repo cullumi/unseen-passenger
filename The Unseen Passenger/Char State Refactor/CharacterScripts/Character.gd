@@ -33,38 +33,39 @@ func _ready() :
 	move_state = PersistentState.new(self, CharFactory)
 	add_child(move_state)
 
-func set_move_dir(move_dir) : move_state.execute("set_move_dir", move_dir)
-func set_sprint(sprint) : move_state.execute("set_sprint", sprint)
+func set_move_dir(new_move_dir) : move_state.execute("set_move_dir", new_move_dir)
+func set_sneak(new_sneak) : move_state.execute(("set_sneak"), new_sneak)
+func set_sprint(new_sprint) : move_state.execute("set_sprint", new_sprint)
 func flip_char_direction() : move_state.execute("flip_direction")
 
 # High Level Movement
 
 func sneak():
-	print("Sneaking")
+#	print("Sneaking")
 	base_speed = sneak_speed
 	speed = sneak_speed
 	limbs.play(ANIM_WALK)
 
 func walk():
-	print("Walking")
+#	print("Walking")
 	base_speed = walk_speed
 	speed = walk_speed
 	limbs.play(ANIM_WALK)
 
 func run():
-	print("Running")
+#	print("Running")
 	base_speed = sprint_speed
 	speed = sprint_speed
 	limbs.play(ANIM_RUN)
 
 func wait():
-	print("Idling")
+#	print("Idling")
 	base_speed = base_speed
 	speed = 0
 	limbs.play(ANIM_IDLE)
 
 func strafe(target_speed=null):
-	print("Strafing")
+#	print("Strafing")
 	if target_speed:
 		speed = (base_speed + target_speed)/2 * strafe_modifier
 	else:

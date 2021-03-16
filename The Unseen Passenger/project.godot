@@ -24,6 +24,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Char State Refactor/CharacterScripts/Character.gd"
 }, {
+"base": "PassState",
+"class": "EscaptePassState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Passenger/escape_pass_state.gd"
+}, {
+"base": "PassState",
+"class": "FleePassState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Passenger/flee_pass_state.gd"
+}, {
 "base": "PlayState",
 "class": "FocusPlayState",
 "language": "GDScript",
@@ -34,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Char State Refactor/State/Character/idle_char_state.gd"
 }, {
+"base": "PassState",
+"class": "IdlePassState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Passenger/idle_pass_state.gd"
+}, {
 "base": "PlayState",
 "class": "IdlePlayState",
 "language": "GDScript",
@@ -43,6 +58,21 @@ _global_script_classes=[ {
 "class": "IdleState",
 "language": "GDScript",
 "path": "res://Char State Refactor/StateExamples/idle_state.gd"
+}, {
+"base": "StateFactory",
+"class": "PassFactory",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Passenger/pass_factory.gd"
+}, {
+"base": "State",
+"class": "PassState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Passenger/pass_state.gd"
+}, {
+"base": "Character",
+"class": "PassengerNew",
+"language": "GDScript",
+"path": "res://Char State Refactor/CharacterScripts/NewPassenger.gd"
 }, {
 "base": "Node",
 "class": "PersistentState",
@@ -84,6 +114,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Char State Refactor/StateExamples/run_state.gd"
 }, {
+"base": "PassState",
+"class": "SneakPassState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Passenger/sneak_pass_state.gd"
+}, {
+"base": "PassState",
+"class": "StalkPassState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Passenger/stalk_pass_state.gd"
+}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
@@ -98,6 +138,11 @@ _global_script_classes=[ {
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://Char State Refactor/StateExamples/StateMachine.gd"
+}, {
+"base": "PassState",
+"class": "TelePassState",
+"language": "GDScript",
+"path": "res://Char State Refactor/State/Passenger/tele_pass_state.gd"
 }, {
 "base": "Object",
 "class": "UPState",
@@ -123,10 +168,16 @@ _global_script_class_icons={
 "CharFactory": "",
 "CharState": "",
 "Character": "",
+"EscaptePassState": "",
+"FleePassState": "",
 "FocusPlayState": "",
 "IdleCharState": "",
+"IdlePassState": "",
 "IdlePlayState": "",
 "IdleState": "",
+"PassFactory": "",
+"PassState": "",
+"PassengerNew": "",
 "PersistentState": "",
 "PlayFactory": "",
 "PlayState": "",
@@ -135,9 +186,12 @@ _global_script_class_icons={
 "PlayerNew": "",
 "RunCharState": "",
 "RunState": "",
+"SneakPassState": "",
+"StalkPassState": "",
 "State": "",
 "StateFactory": "",
 "StateMachine": "",
+"TelePassState": "",
 "UPState": "",
 "UnseenPassenger": "",
 "Vectors": "",

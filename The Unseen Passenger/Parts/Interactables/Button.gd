@@ -1,10 +1,19 @@
 extends Area2D
 
 export (NodePath) var target_path
+export (Dictionary) var valid_trigger_groups = {
+	"open":["director"],
+	"close":["director"],
+	"trigger":["director"],
+}
 
 onready var target : Node2D = get_node(target_path)
 onready var highlight = $ButtonHighlight
 onready var light = $ButtonLight
+
+const OPEN = true
+const CLOSE = false
+const TRIGGER = null
 
 var is_open : bool = false
 var openable : bool = false
@@ -80,6 +89,34 @@ func show_highlight():
 func hide_highlight():
 	highlighted = false
 	highlight.visible = false
+
+func trigger(interactor, open=null, trigger_when_possible=false, use_delay=false, delay=1.0):
+	print("Button Triggered: ", interactor.name, ", ", "Open" if open else ("Toggle" if open==null else "Close"))
+	if (use_delay):
+		yield(get_tree().create_timer(delay), "timeout")
+	if has_valid_group(interactor, open):
+		while (true):
+			if closable != open or openable == open:
+				if open==TRIGGER or open != is_open:
+					activate()
+				return
+			if trigger_when_possible:
+				yield(get_tree(), "idle_frame")
+			else:
+				return
+
+func has_valid_group(interactor, validity_key="trigger"):
+	if not validity_key is String: validity_key = validity_group(validity_key)
+	for group in valid_trigger_groups[validity_key]:
+		if interactor.is_in_group(group): 
+			return true
+	return false
+
+func validity_group(validity_key=null):
+	match validity_key:
+		OPEN: return "open"
+		CLOSE: return "close"
+		TRIGGER: return "trigger"
 
 func _on_target_state_changed():
 	fetch_target_state()

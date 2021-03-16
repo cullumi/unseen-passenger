@@ -6,7 +6,6 @@
 [ext_resource path="res://Textures/SightLines/SingleSightline.png" type="Texture" id=4]
 
 [node name="FocusDetector" type="Position2D"]
-position = Vector2( 0, -30.8681 )
 script = ExtResource( 2 )
 
 [node name="FocusCone" type="Light2D" parent="."]
@@ -41,11 +40,20 @@ texture = ExtResource( 4 )
 centered = false
 offset = Vector2( 0, -2 )
 
+[node name="FocusRays" type="Node2D" parent="."]
+
+[node name="TopRay" type="RayCast2D" parent="FocusRays"]
+enabled = true
+cast_to = Vector2( 614.328, 150.412 )
+
+[node name="BottomRay" type="RayCast2D" parent="FocusRays"]
+cast_to = Vector2( 613.5, -158.9 )
+
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 scale = Vector2( -1, 1 )
-polygon = PoolVector2Array( 8.79913, 0.0531311, -614.328, 150.412, -613.5, -158.9 )
+polygon = PoolVector2Array( 8.799, 0, -614.328, 150.412, -613.5, -158.9 )
 
 [node name="FocusConeSprite" type="Sprite" parent="."]
 visible = false

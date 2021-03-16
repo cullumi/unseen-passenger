@@ -4,7 +4,6 @@ class_name IdleCharState
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Begin Idling")
 	character.wait()
 
 func set_move_dir(move_dir):

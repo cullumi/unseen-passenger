@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Textures/Parallax/SkyPB.png" type="Texture" id=1]
 [ext_resource path="res://Textures/Parallax/MountainsPB.png" type="Texture" id=2]
@@ -13,8 +13,7 @@
 [ext_resource path="res://Textures/Parallax/TrainBackWheels.png" type="Texture" id=11]
 [ext_resource path="res://Textures/Doorways.png" type="Texture" id=12]
 [ext_resource path="res://Textures/SteeringWheel.png" type="Texture" id=13]
-[ext_resource path="res://Parts/Characters/Player.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Parts/Characters/Unseen Passenger.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Char State Refactor/Character Scenes/NewPassenger.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Parts/Characters/PlayerCamera.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Char State Refactor/Character Scenes/NewPlayer.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Parts/Interactables/TrainDoor.tscn" type="PackedScene" id=20]
@@ -144,15 +143,27 @@ shape = SubResource( 1 )
 
 [node name="DoorButton1" parent="Train" groups=[
 "detectable",
+"door",
 ] instance=ExtResource( 21 )]
 position = Vector2( -499.929, 298.419 )
 target_path = NodePath("../TrainDoor1")
+valid_trigger_groups = {
+"close": [ "director", "passenger" ],
+"open": [ "director", "passenger" ],
+"trigger": [ "director" ]
+}
 
 [node name="DoorButton2" parent="Train" groups=[
 "detectable",
+"door",
 ] instance=ExtResource( 21 )]
 position = Vector2( 589.251, 295.59 )
 target_path = NodePath("../TrainDoor2")
+valid_trigger_groups = {
+"close": [ "director", "player" ],
+"open": [ "director", "player" ],
+"trigger": [ "director", "player" ]
+}
 
 [node name="TrainBody" type="Sprite" parent="Train"]
 scale = Vector2( 2, 2 )
@@ -189,17 +200,10 @@ texture = ExtResource( 10 )
 offset = Vector2( 0, 135 )
 
 [node name="PlayerCamera" parent="." instance=ExtResource( 16 )]
-target_path = NodePath("../Player")
-
-[node name="OldPlayer" parent="." instance=ExtResource( 14 )]
 
 [node name="Player" parent="." instance=ExtResource( 17 )]
 controlled = true
 
-[node name="Unseen Passenger" parent="." groups=[
-"detectable",
-] instance=ExtResource( 15 )]
-position = Vector2( -777.818, 332.34 )
-player_path = NodePath("../OldPlayer")
-[connection signal="cam_zoom" from="OldPlayer" to="PlayerCamera" method="smooth_zoom"]
+[node name="Unseen Passenger" parent="." instance=ExtResource( 14 )]
+position = Vector2( -781.884, 319.958 )
 [connection signal="cam_zoom" from="Player" to="PlayerCamera" method="smooth_zoom"]
