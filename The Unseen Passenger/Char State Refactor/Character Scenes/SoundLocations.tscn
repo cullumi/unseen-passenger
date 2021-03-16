@@ -1,0 +1,6 @@
+[gd_scene format=2]
+
+[node name="SoundLocations" type="Node2D"]
+
+[node name="Feet" type="Position2D" parent="."]
+position = Vector2( 0, 44.2799 )

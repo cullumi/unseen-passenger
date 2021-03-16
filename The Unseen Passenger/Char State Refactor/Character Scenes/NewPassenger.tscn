@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Parts/Characters/CharacterAnim.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Char State Refactor/CharacterScripts/NewPassenger.gd" type="Script" id=2]
 [ext_resource path="res://Textures/Characters/PlayerBase.png" type="Texture" id=3]
+[ext_resource path="res://Char State Refactor/Character Scenes/SoundLocations.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Textures/SightLines/InvisibilityAura.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -68,6 +69,8 @@ wait_time = 4.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactor"]
 shape = SubResource( 1 )
+
+[node name="SoundLocations" parent="." instance=ExtResource( 4 )]
 [connection signal="timeout" from="CautionTimer" to="." method="_on_Caution_Timer_timeout"]
 [connection signal="area_entered" from="Interactor" to="." method="_on_Interactor_area_entered"]
 [connection signal="area_exited" from="Interactor" to="." method="_on_Interactor_area_exited"]

@@ -8,6 +8,7 @@ export (float) var sprint_speed = 300
 export (float) var strafe_modifier = 0.75
 export (float) var gravity = 200
 
+onready var feet = $SoundLocations/Feet
 onready var body = $Sprites/BaseS
 onready var limbs:AnimatedSprite = $Sprites/LimbsAS
 var flippable:Array = []
@@ -20,10 +21,11 @@ var move_dir:Vector2 = Vector2()
 var base_speed:float = walk_speed
 var speed:float  = walk_speed
 var velocity:Vector2 = Vector2(0, gravity)
+var final_velocity:Vector2 = Vector2()
 var is_flipped:bool = false
 var sprint:bool = false
 
-var walk_audio_loop = null
+var walk_sound_player = null
 
 # State
 
@@ -31,6 +33,7 @@ var move_state
 
 func _ready() : 
 	move_state = PersistentState.new(self, CharFactory)
+	walk_sound_player = Audio.assign_sound_player(Audio.CHAR_WALK, feet)
 	add_child(move_state)
 
 func set_move_dir(new_move_dir) : move_state.execute("set_move_dir", new_move_dir)
@@ -95,7 +98,7 @@ func construct_velocity():
 	velocity.x = move_dir.x * speed
 
 func apply_velocity():
-	move_and_slide(velocity, Vector2.UP)
+	final_velocity = move_and_slide(velocity, Vector2.UP)
 
 func set_flip_h(flipped:bool):
 	is_flipped = flipped

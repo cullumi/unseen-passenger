@@ -110,12 +110,6 @@ func _on_Caution_Timer_timeout(): caution_timer.stop()
 
 # Interaction
 
-#func delayed_trigger(interactable, open=null, delay=1.0):
-#	print("Delayed Trigger: ", interactable, ", ", "Open" if open else ("Close" if open!=null else "Toggle"), ", ", delay, "s")
-#	yield(get_tree().create_timer(delay), "timeout")
-#	print("Triggering...")
-#	interactable.trigger(self, open)
-
 func trigger_door(open=null):
 	print("Triggered Door")
 	for interactable in interactables:
