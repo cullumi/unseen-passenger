@@ -4,16 +4,25 @@ export (NodePath) var target_path
 export (Dictionary) var valid_trigger_groups = {
 	"open":["director"],
 	"close":["director"],
-	"trigger":["director"],
 }
 
 onready var target : Node2D = get_node(target_path)
 onready var highlight = $ButtonHighlight
 onready var light = $ButtonLight
 
-const OPEN = true
-const CLOSE = false
-const TRIGGER = null
+# Trigger Options
+const T_OPEN = true
+const T_CLOSE = false
+const T_TOGGLE = null
+const TS_OPEN = "open"
+const TS_CLOSE = "close"
+const TS_TOGGLE = "toggle"
+
+# Light Options
+const L_UNLOCKED = "Automatic"
+const L_LOCKED = "Locked"
+const L_OPEN = "CanOpen"
+const L_BLOCKED = "CanClose"
 
 var is_open : bool = false
 var openable : bool = false
@@ -31,11 +40,11 @@ func _ready():
 		target.instant_close()
 	update_light()
 
-func _input(event):
-	if (highlighted):
-		var player_interact = event.is_action_pressed("player_interact")
-		if (player_interact):
-			activate()
+#func _input(event):
+#	if (highlighted):
+#		var player_interact = event.is_action_pressed("player_interact")
+#		if (player_interact):
+#			activate()
 
 func activate():
 	if (triggerable):
@@ -61,22 +70,22 @@ func set_can_trigger(can_trigger):
 	update_light()
 
 func update_light():
-	if (is_open):
-		if (closable):
-			if (automatic):
-				light.animation = "Automatic"
+	if is_open:
+		if group_is_valid("player", TS_CLOSE):
+			if closable:
+				light.play(L_OPEN)
 			else:
-				light.animation = "CanClose"
+				light.play(L_BLOCKED)
 		else:
-			light.animation = "Locked"
+			light.play(L_LOCKED)
 	else:
-		if (closable):
-			if (automatic):
-				light.animation = "Automatic"
+		if group_is_valid("player", TS_OPEN):
+			if openable:
+				light.play(L_UNLOCKED)
 			else:
-				light.animation = "CanOpen"
+				light.play(L_BLOCKED)
 		else:
-			light.animation = "Locked"
+			light.play(L_LOCKED)
 
 func fetch_target_state():
 	closable = target.closable
@@ -97,13 +106,16 @@ func trigger(interactor, open=null, trigger_when_possible=false, use_delay=false
 	if has_valid_group(interactor, open):
 		while (true):
 			if closable != open or openable == open:
-				if open==TRIGGER or open != is_open:
+				if open==T_TOGGLE or open != is_open:
 					activate()
 				return
 			if trigger_when_possible:
 				yield(get_tree(), "idle_frame")
 			else:
 				return
+
+func group_is_valid(interactor_group:String, validity_key:String):
+	return valid_trigger_groups[validity_key].has(interactor_group)
 
 func has_valid_group(interactor, validity_key="trigger"):
 	if not validity_key is String: validity_key = validity_group(validity_key)
@@ -114,9 +126,9 @@ func has_valid_group(interactor, validity_key="trigger"):
 
 func validity_group(validity_key=null):
 	match validity_key:
-		OPEN: return "open"
-		CLOSE: return "close"
-		TRIGGER: return "trigger"
+		T_OPEN: return TS_OPEN
+		T_CLOSE: return TS_CLOSE
+		T_TOGGLE: return TS_CLOSE if is_open else TS_OPEN
 
 func _on_target_state_changed():
 	fetch_target_state()

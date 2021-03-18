@@ -9,6 +9,8 @@ signal cam_zoom
 onready var cam_piv = $CamPivot
 onready var focus_detector = $FocusDetector
 
+var interactables = []
+
 var look_dir:Vector2 = Vector2()
 var view_changed = false
 var is_focusing = false
@@ -24,6 +26,7 @@ func _ready() :
 	add_child(play_state)
 	if controlled : add_child(PlayerInput.new(self))
 
+func interact(): play_state.execute("interact")
 func set_look_dir(look_dir): play_state.execute("set_look_dir", look_dir)
 func toggle_view_lock(): play_state.execute("toggle_view_lock")
 func set_focus(focus): play_state.execute("set_focus", focus)
@@ -72,3 +75,19 @@ func set_view_flip(flipped:bool):
 		tfrmbl.scale.x *= -1
 		return true
 	return false
+
+# Interaction
+
+func trigger(open=null):
+	for interactable in interactables:
+		interactable.trigger(self, open)
+
+func can_interact(): return interactables.size() > 0
+func add_interactable(interactable): if not interactables.has(interactable) : interactables.append(interactable)
+func remove_interactable(interactable): if interactables.has(interactable): interactables.erase(interactable)
+func _on_Interactor_area_entered(area):
+	if area.is_in_group("interactable"):
+		play_state.execute("_add_interactable", area)
+func _on_Interactor_area_exited(area):
+	if area.is_in_group("interactable"):
+		play_state.execute("_remove_interactable", area)

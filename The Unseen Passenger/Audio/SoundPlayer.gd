@@ -72,7 +72,6 @@ func get_sound(idx:int):
 # Asynchronous Stuff
 
 func start_sound_loop(spacing=.75):
-	print("Start sound loop.")
 	if looping:
 		yield(stop_sound_loop(), "completed")
 	sound_loop(spacing)
@@ -87,3 +86,5 @@ func sound_loop(spacing=.75):
 		if not stream_player.playing:
 			play_rand_sound()
 			yield(get_tree().create_timer(spacing), "timeout")
+		else:
+			yield(get_tree(), "idle_frame")

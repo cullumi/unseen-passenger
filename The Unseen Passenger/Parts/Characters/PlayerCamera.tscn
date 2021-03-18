@@ -5,7 +5,6 @@
 [node name="PlayerCamera" type="Position2D"]
 position = Vector2( 480, 270 )
 script = ExtResource( 1 )
-target_path = NodePath("../Player/CamPivot/CamTarget")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true

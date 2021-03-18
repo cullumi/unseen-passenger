@@ -47,8 +47,12 @@ func _ready():
 # High Level
 
 # how to move
-func start_sprinting(): set_sprint(true)
-func start_sneaking(): set_sneak(true)
+func start_sprinting(): 
+	set_sneak(false)
+	set_sprint(true)
+func start_sneaking(): 
+	set_sprint(false)
+	set_sneak(true)
 func start_walking():
 	set_sprint(false)
 	set_sneak(false)

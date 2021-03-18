@@ -19,6 +19,7 @@ func look(dir:Vector2, adj_weight=Vectors.PREFER_NEW) : player.set_look_dir(Vect
 func sprint(sprint) : player.set_sprint(sprint)
 func toggle_view_lock() : player.toggle_view_lock()
 func focus(focus) : player.set_focus(focus)
+func interact(): player.interact()
 
 # Triggers
 func _input(event):
@@ -44,3 +45,5 @@ func _input(event):
 	# Focus
 	elif action_press("player_focus") : focus(true)
 	elif action_release("player_focus") : focus(false)
+	# Interaction
+	elif action_press("player_interact") : interact()
