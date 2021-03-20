@@ -5,10 +5,11 @@ export (float, 0, 10) var blink_speed = 1
 export (float, 0, 10) var blink_rate_max = 4
 export (float, 0, 2) var blink_scale = 1
 
+onready var blinker:Blinker = $Blinker
 onready var focus_area = $Area2D
 onready var focus_collider = $Area2D/CollisionPolygon2D
 onready var focus_cone = $FocusCone
-onready var focus_guide = $FocusGuide
+#onready var focus_guide = $FocusGuide
 onready var blink_timer:Timer = $BlinkDelayTimer
 
 var is_blinking = false
@@ -31,7 +32,7 @@ func _process(delta):
 func set_active(active:bool):
 	self.active = active
 	focus_cone.enabled = active
-	focus_guide.visible = active
+	blinker.visible = active
 	focus_collider.disabled = !active
 
 func blink():
@@ -67,7 +68,8 @@ func display_blink(level):
 	var blink_stage = abs((level-0.5) * 2)
 	focus_cone.scale.y = clamp(blink_stage * blink_scale, 0.2, blink_scale)
 	focus_cone.color.a = blink_stage
-	focus_guide.scale.y = blink_stage * blink_scale
+	blinker.set_stage(blink_stage)
+#	focus_guide.scale.y = blink_stage * blink_scale
 	focus_area.scale.y = blink_stage * blink_scale
 
 func _on_Area2D_body_entered(body):

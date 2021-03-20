@@ -19,10 +19,11 @@ const TS_CLOSE = "close"
 const TS_TOGGLE = "toggle"
 
 # Light Options
-const L_UNLOCKED = "Automatic"
+const L_Automatic = "Automatic"
+const L_UNLOCKED = "Unlocked"
 const L_LOCKED = "Locked"
-const L_OPEN = "CanOpen"
-const L_BLOCKED = "CanClose"
+const L_OPEN = "Open"
+const L_BLOCKED = "Blocked"
 
 var is_open : bool = false
 var openable : bool = false
@@ -39,12 +40,6 @@ func _ready():
 	else:
 		target.instant_close()
 	update_light()
-
-#func _input(event):
-#	if (highlighted):
-#		var player_interact = event.is_action_pressed("player_interact")
-#		if (player_interact):
-#			activate()
 
 func activate():
 	if (triggerable):

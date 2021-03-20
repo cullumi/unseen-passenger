@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Blinker",
+"language": "GDScript",
+"path": "res://Parts/Characters/Blinker.gd"
+}, {
 "base": "StateFactory",
 "class": "CharFactory",
 "language": "GDScript",
@@ -170,6 +175,7 @@ _global_script_classes=[ {
 "path": "res://Char State Refactor/State/Character/walk_char_state.gd"
 } ]
 _global_script_class_icons={
+"Blinker": "",
 "CharFactory": "",
 "CharState": "",
 "Character": "",

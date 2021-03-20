@@ -11,7 +11,7 @@ var offset = Vector2()
 var max_distance = 1000
 var attenuation = 1
 var autoplay = false
-var volume_db = 0
+var volume_db = -5
 
 var sounds:Array
 var looping:bool = false

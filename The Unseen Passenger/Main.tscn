@@ -149,7 +149,7 @@ position = Vector2( -499.929, 298.419 )
 target_path = NodePath("../TrainDoor1")
 valid_trigger_groups = {
 "close": [ "director", "passenger", "player" ],
-"open": [ "director", "passenger", "player" ]
+"open": [ "director", "passenger" ]
 }
 
 [node name="DoorButton2" parent="Train" groups=[
