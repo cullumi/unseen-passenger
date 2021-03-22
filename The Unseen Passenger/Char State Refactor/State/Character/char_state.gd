@@ -5,7 +5,7 @@ class_name CharState
 
 onready var character = source
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	character.construct_velocity()
 	character.apply_velocity()
 	

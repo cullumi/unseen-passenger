@@ -41,7 +41,7 @@ func _ready():
 		music_player.stream = music_loop[0]
 		add_child(music_player)
 	if (sounds_present()):
-		for i in range(0, 2):
+		for _i in range(0, 2):
 			sp_pool.push_back(new_sound_player())
 
 #For interacting with the sound player pool
@@ -80,7 +80,9 @@ func load_audio_files_to(str_dir : String, file_list = null):
 	if (file_list == null):
 		file_list = []
 	var dir : Directory = Directory.new()
+# warning-ignore:return_value_discarded
 	dir.open(str_dir)
+# warning-ignore:return_value_discarded
 	dir.list_dir_begin()
 	while true:
 		var file = dir.get_next()

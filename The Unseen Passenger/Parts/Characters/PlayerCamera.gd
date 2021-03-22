@@ -9,7 +9,7 @@ onready var initial_zoom = camera.zoom
 var last_pos
 var pos_weight = 0
 
-func _process(delta):
+func _process(_delta):
 	position.x = target.global_position.x
 
 func smooth_zoom(zoom=null):

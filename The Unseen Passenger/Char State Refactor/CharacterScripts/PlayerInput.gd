@@ -7,8 +7,8 @@ var player
 # Last Event
 var event:InputEvent = null
 
-func _init(player):
-	self.player = player
+func _init(_player):
+	self.player = _player
 
 # Actions
 func action_press(action) : return event.is_action_pressed(action)
@@ -22,8 +22,8 @@ func focus(focus) : player.set_focus(focus)
 func interact(): player.interact()
 
 # Triggers
-func _input(event):
-	self.event = event
+func _input(_event):
+	self.event = _event
 	# Moving
 	if action_press("move_left") : move(Vector2.LEFT)	
 	elif action_release("move_left") : move(Vector2.RIGHT, Vectors.MASK_NEW)

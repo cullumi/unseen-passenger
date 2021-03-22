@@ -8,7 +8,7 @@ var strafe = false
 func _ready():
 	character.walk()
 
-func _process(delta):
+func _process(_delta):
 	if character.is_strafing():
 		if not strafe:
 			strafe = true
@@ -19,7 +19,7 @@ func _process(delta):
 
 func set_sprint(sprint:bool):
 	character.sprint = sprint
-	if sprint: change_state.call_func("run")
+	if sprint: change_state("run")
 
 func set_move_dir(move_dir):
 	character.move_dir = move_dir

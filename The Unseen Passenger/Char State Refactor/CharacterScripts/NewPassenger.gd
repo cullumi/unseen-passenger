@@ -95,7 +95,7 @@ func player_range():
 
 # Low Level
 
-func set_status(status:String, enable:bool): self.status[status] = enable
+func set_status(_status:String, enable:bool): self.status[_status] = enable
 func set_param(param:String, value:int): self.params[param] = value
 func inc_param(param:String): self.params[param] += 1
 

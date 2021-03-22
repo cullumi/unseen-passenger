@@ -33,6 +33,7 @@ var automatic : bool = false
 var highlighted : bool = false
 
 func _ready():
+# warning-ignore:return_value_discarded
 	target.connect("state_changed", self, '_on_target_state_changed')
 	fetch_target_state()
 	if is_open:

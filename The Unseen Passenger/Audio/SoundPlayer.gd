@@ -29,26 +29,26 @@ func build():
 	stream_player.volume_db = volume_db
 	add_child(stream_player)
 
-func rebuild(volume_db=self.volume_db, max_distance=self.max_distance, 
-					attenuation=self.attenuation, autoplay=self.autoplay):
-	self.max_distance = max_distance
-	self.attenuation = attenuation
-	self.autoplay = autoplay
-	self.volume_db = volume_db
-	stream_player.max_distance = max_distance
-	stream_player.attenuation = attenuation
-	stream_player.autoplay = autoplay
-	stream_player.volume_db = volume_db
+func rebuild(_volume_db=self.volume_db, _max_distance=self.max_distance, 
+					_attenuation=self.attenuation, _autoplay=self.autoplay):
+	self.max_distance = _max_distance
+	self.attenuation = _attenuation
+	self.autoplay = _autoplay
+	self.volume_db = _volume_db
+	stream_player.max_distance = _max_distance
+	stream_player.attenuation = _attenuation
+	stream_player.autoplay = _autoplay
+	stream_player.volume_db = _volume_db
 
-func set_offset(offset):
-	self.offset = offset
-	position = offset
+func set_offset(_offset):
+	self.offset = _offset
+	position = _offset
 
-func set_source(source):
-	self.source = source
+func set_source(_source):
+	self.source = _source
 
-func set_sounds(sounds:Array):
-	self.sounds = sounds
+func set_sounds(_sounds:Array):
+	self.sounds = _sounds
 
 # The Basics
 
@@ -78,7 +78,7 @@ func start_sound_loop(spacing=.75):
 
 func stop_sound_loop():
 	looping = false
-	yield(get_tree(), "idle_frame")
+#	yield(get_tree(), "idle_frame")
 
 func sound_loop(spacing=.75):
 	looping = true

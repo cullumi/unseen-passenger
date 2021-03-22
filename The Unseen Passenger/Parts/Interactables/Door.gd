@@ -5,6 +5,7 @@ export (bool) var startOpen = false
 signal state_changed
 
 onready var collider : CollisionShape2D = $StaticBody2D/CollisionShape2D
+onready var light_occluder : LightOccluder2D = $LightOccluder2D
 
 var num_bodies = 0
 var closable = true
@@ -23,22 +24,26 @@ func open():
 	animation = "Opening"
 	playing = true
 	collider.disabled = true
+	light_occluder.visible = false
 
 func close():
 	if debug : print("Closing Door")
 	animation = "Closing"
 	playing = true
 	collider.disabled = false
+	light_occluder.visible = true
 
 func instant_open():
 	animation = "Opened"
 	playing = true
 	collider.disabled = true
+	light_occluder.visible = false
 
 func instant_close():
 	animation = "Closed"
 	playing = true
 	collider.disabled = false
+	light_occluder.visible = true
 
 func _on_animation_finished():
 	if debug : print("Animation Finished")

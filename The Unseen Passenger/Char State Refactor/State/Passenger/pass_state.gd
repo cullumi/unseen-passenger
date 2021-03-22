@@ -21,8 +21,8 @@ func _remove_interactable(interactable):
 		passenger.remove_interactable(interactable)
 
 # Helpers
-func set_status(status:String, enable:bool):
-	self.status[status] = enable
+func set_status(_status:String, enable:bool):
+	self.status[_status] = enable
 
 func set_param(param:String, value:int):
 	self.params[param] = value

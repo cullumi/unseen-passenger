@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Textures/Parallax/SkyPB.png" type="Texture" id=1]
 [ext_resource path="res://Textures/Parallax/MountainsPB.png" type="Texture" id=2]
@@ -22,10 +22,13 @@
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 15.1911
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 425.108, 10 )
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( -418.742, -102.707, 420.821, -101.903, 420.821, -9.1312, -419.048, -9.55313 )
 
 [sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 425.108, 10 )
+
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 3.28183, 61.6815 )
 
 [node name="Main" type="Node2D"]
@@ -149,7 +152,7 @@ position = Vector2( -499.929, 298.419 )
 target_path = NodePath("../TrainDoor1")
 valid_trigger_groups = {
 "close": [ "director", "passenger", "player" ],
-"open": [ "director", "passenger" ]
+"open": [ "director", "passenger", "player" ]
 }
 
 [node name="DoorButton2" parent="Train" groups=[
@@ -168,23 +171,29 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 9 )
 offset = Vector2( 0, 135 )
 
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Train/TrainBody"]
+light_mask = 3
+position = Vector2( -2.67273, 208.47 )
+occluder = SubResource( 2 )
+light_mask = 3
+
 [node name="Collision" type="StaticBody2D" parent="Train/TrainBody"]
 
 [node name="Floor" type="CollisionShape2D" parent="Train/TrainBody/Collision"]
 position = Vector2( -2.67273, 208.47 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Floor2" type="CollisionShape2D" parent="Train/TrainBody/Collision"]
 position = Vector2( -1.78183, 97.108 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Floor3" type="CollisionShape2D" parent="Train/TrainBody/Collision"]
 position = Vector2( -424.333, 154.125 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="Floor4" type="CollisionShape2D" parent="Train/TrainBody/Collision"]
 position = Vector2( 420.641, 153.235 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="TrainFrontWall" type="Sprite" parent="Train"]
 visible = false

@@ -27,6 +27,7 @@ func _ready() :
 	if controlled : add_child(PlayerInput.new(self))
 
 func interact(): play_state.execute("interact")
+# warning-ignore:shadowed_variable
 func set_look_dir(look_dir): play_state.execute("set_look_dir", look_dir)
 func toggle_view_lock(): play_state.execute("toggle_view_lock")
 func set_focus(focus): play_state.execute("set_focus", focus)
@@ -59,7 +60,7 @@ func flip_direction():
 	flip_char_direction()
 	set_view_flip(is_flipped)
 
-func point_focus(point : Vector2):
+func point_focus(_point:Vector2):
 	focus_detector.look_at(get_global_mouse_position())
 	var rot = focus_detector.rotation_degrees
 	if rot > 270:
