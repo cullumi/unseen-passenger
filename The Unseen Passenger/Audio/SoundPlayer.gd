@@ -3,9 +3,13 @@ extends Node2D
 
 class_name SoundPlayer
 
-var stream_player
+signal sound_started
+signal sound_ended
+
+var stream_player:AudioStreamPlayer2D
 
 var source
+var effect_key = "echo"
 var offset = Vector2()
 
 var max_distance = 1000
@@ -19,10 +23,9 @@ var looping:bool = false
 # Initialization
 
 func _ready():
-	build()
-
-func build():
 	stream_player = AudioStreamPlayer2D.new()
+	stream_player.connect("finished", self, "_sound_ended")
+	effect_key = Effects.DEFAULT_SOUND
 	stream_player.max_distance = max_distance
 	stream_player.attenuation = attenuation
 	stream_player.autoplay = autoplay
@@ -63,8 +66,12 @@ func play_sound_idx(idx:int):
 	play_sound(sound)
 
 func play_sound(sound:AudioStream):
+	print("Playing Sound")
 	stream_player.stream = sound
 	stream_player.play()
+	emit_signal("sound_started")
+	if effect_key:
+		Effects.spawn_one_shot(effect_key, self)
 
 func get_sound(idx:int):
 	return sounds[idx]
@@ -88,3 +95,8 @@ func sound_loop(spacing=.75):
 			yield(get_tree().create_timer(spacing), "timeout")
 		else:
 			yield(get_tree(), "idle_frame")
+
+func _sound_ended():
+	print("Sound Ended")
+	stream_player.stop()
+	emit_signal("sound_ended")

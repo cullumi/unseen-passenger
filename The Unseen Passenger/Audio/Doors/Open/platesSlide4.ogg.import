@@ -11,5 +11,5 @@ dest_files=[ "res://.import/platesSlide4.ogg-c7d2ed2a7a98b36089714d8853af19a3.og
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

@@ -12,127 +12,132 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Blinker",
 "language": "GDScript",
-"path": "res://Parts/ViewCone/Blinker.gd"
+"path": "res://Scripts/ViewCone/Blinker.gd"
 }, {
 "base": "StateFactory",
 "class": "CharFactory",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Character/char_factory.gd"
+"path": "res://Scripts/State/Character/char_factory.gd"
 }, {
 "base": "State",
 "class": "CharState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Character/char_state.gd"
+"path": "res://Scripts/State/Character/char_state.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Character",
 "language": "GDScript",
-"path": "res://Char State Refactor/CharacterScripts/Character.gd"
+"path": "res://Scripts/Characters/Character.gd"
 }, {
 "base": "Area2D",
 "class": "CollisionCone2D",
 "language": "GDScript",
-"path": "res://Parts/ViewCone/CollisionCone2D.gd"
+"path": "res://Scripts/ViewCone/CollisionCone2D.gd"
 }, {
 "base": "PassState",
 "class": "EscaptePassState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Passenger/escape_pass_state.gd"
+"path": "res://Scripts/State/Passenger/escape_pass_state.gd"
+}, {
+"base": "Object",
+"class": "FileLoader",
+"language": "GDScript",
+"path": "res://FileLoader.gd"
 }, {
 "base": "PassState",
 "class": "FleePassState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Passenger/flee_pass_state.gd"
+"path": "res://Scripts/State/Passenger/flee_pass_state.gd"
 }, {
 "base": "Position2D",
 "class": "FocusDetector",
 "language": "GDScript",
-"path": "res://Parts/ViewCone/FocusDetector.gd"
+"path": "res://Scripts/ViewCone/FocusDetector.gd"
 }, {
 "base": "PlayState",
 "class": "FocusPlayState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Player/focus_play_state.gd"
+"path": "res://Scripts/State/Player/focus_play_state.gd"
 }, {
 "base": "CharState",
 "class": "IdleCharState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Character/idle_char_state.gd"
+"path": "res://Scripts/State/Character/idle_char_state.gd"
 }, {
 "base": "PassState",
 "class": "IdlePassState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Passenger/idle_pass_state.gd"
+"path": "res://Scripts/State/Passenger/idle_pass_state.gd"
 }, {
 "base": "PlayState",
 "class": "IdlePlayState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Player/idle_play_state.gd"
+"path": "res://Scripts/State/Player/idle_play_state.gd"
 }, {
-"base": "State",
-"class": "IdleState",
+"base": "Particles2D",
+"class": "ParticleEffect",
 "language": "GDScript",
-"path": "res://Char State Refactor/StateExamples/idle_state.gd"
+"path": "res://Effects/ParticleEffect.gd"
 }, {
 "base": "StateFactory",
 "class": "PassFactory",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Passenger/pass_factory.gd"
+"path": "res://Scripts/State/Passenger/pass_factory.gd"
 }, {
 "base": "State",
 "class": "PassState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Passenger/pass_state.gd"
+"path": "res://Scripts/State/Passenger/pass_state.gd"
 }, {
 "base": "Character",
 "class": "PassengerNew",
 "language": "GDScript",
-"path": "res://Char State Refactor/CharacterScripts/NewPassenger.gd"
+"path": "res://Scripts/Characters/NewPassenger.gd"
 }, {
 "base": "Node",
 "class": "PersistentState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/persistent_state.gd"
+"path": "res://Scripts/State/persistent_state.gd"
 }, {
 "base": "StateFactory",
 "class": "PlayFactory",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Player/play_factory.gd"
+"path": "res://Scripts/State/Player/play_factory.gd"
 }, {
 "base": "State",
 "class": "PlayState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Player/play_state.gd"
+"path": "res://Scripts/State/Player/play_state.gd"
 }, {
 "base": "Node",
 "class": "PlayerInput",
 "language": "GDScript",
-"path": "res://Char State Refactor/CharacterScripts/PlayerInput.gd"
+"path": "res://Scripts/Characters/PlayerInput.gd"
 }, {
 "base": "Character",
 "class": "PlayerNew",
 "language": "GDScript",
-"path": "res://Char State Refactor/CharacterScripts/NewPlayer.gd"
+"path": "res://Scripts/Characters/NewPlayer.gd"
 }, {
 "base": "Object",
 "class": "Pools",
 "language": "GDScript",
-"path": "res://Parts/Pools.gd"
+"path": "res://Scripts/Utilities/Pools.gd"
 }, {
 "base": "CharState",
 "class": "RunCharState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Character/run_char_state.gd"
+"path": "res://Scripts/State/Character/run_char_state.gd"
 }, {
-"base": "State",
-"class": "RunState",
+"base": "CharState",
+"class": "SneakCharState",
 "language": "GDScript",
-"path": "res://Char State Refactor/StateExamples/run_state.gd"
+"path": "res://Scripts/State/Character/sneak_char_state.gd"
 }, {
 "base": "PassState",
 "class": "SneakPassState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Passenger/sneak_pass_state.gd"
+"path": "res://Scripts/State/Passenger/sneak_pass_state.gd"
 }, {
 "base": "Node2D",
 "class": "SoundPlayer",
@@ -142,42 +147,42 @@ _global_script_classes=[ {
 "base": "PassState",
 "class": "StalkPassState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Passenger/stalk_pass_state.gd"
+"path": "res://Scripts/State/Passenger/stalk_pass_state.gd"
 }, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/state.gd"
+"path": "res://Scripts/State/state.gd"
 }, {
 "base": "Reference",
 "class": "StateFactory",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/state_factory.gd"
+"path": "res://Scripts/State/state_factory.gd"
 }, {
 "base": "Object",
-"class": "StateMachine",
+"class": "Strings",
 "language": "GDScript",
-"path": "res://Char State Refactor/StateExamples/StateMachine.gd"
+"path": "res://Scripts/Utilities/Strings.gd"
 }, {
 "base": "PassState",
 "class": "TelePassState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Passenger/tele_pass_state.gd"
+"path": "res://Scripts/State/Passenger/tele_pass_state.gd"
 }, {
 "base": "Object",
 "class": "Vectors",
 "language": "GDScript",
-"path": "res://Parts/Vectors.gd"
+"path": "res://Scripts/Utilities/Vectors.gd"
 }, {
 "base": "Node2D",
 "class": "VisualRay2D",
 "language": "GDScript",
-"path": "res://Parts/ViewCone/VisualRay2D.gd"
+"path": "res://Scripts/ViewCone/VisualRay2D.gd"
 }, {
 "base": "CharState",
 "class": "WalkCharState",
 "language": "GDScript",
-"path": "res://Char State Refactor/State/Character/walk_char_state.gd"
+"path": "res://Scripts/State/Character/walk_char_state.gd"
 } ]
 _global_script_class_icons={
 "Blinker": "",
@@ -186,13 +191,14 @@ _global_script_class_icons={
 "Character": "",
 "CollisionCone2D": "",
 "EscaptePassState": "",
+"FileLoader": "",
 "FleePassState": "",
 "FocusDetector": "",
 "FocusPlayState": "",
 "IdleCharState": "",
 "IdlePassState": "",
 "IdlePlayState": "",
-"IdleState": "",
+"ParticleEffect": "",
 "PassFactory": "",
 "PassState": "",
 "PassengerNew": "",
@@ -203,13 +209,13 @@ _global_script_class_icons={
 "PlayerNew": "",
 "Pools": "",
 "RunCharState": "",
-"RunState": "",
+"SneakCharState": "",
 "SneakPassState": "",
 "SoundPlayer": "",
 "StalkPassState": "",
 "State": "",
 "StateFactory": "",
-"StateMachine": "",
+"Strings": "",
 "TelePassState": "",
 "Vectors": "",
 "VisualRay2D": "",
@@ -225,6 +231,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Audio="*res://Audio/Audio.gd"
+Effects="*res://Effects/Effects.gd"
 
 [display]
 
