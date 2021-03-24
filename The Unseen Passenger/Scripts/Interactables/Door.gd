@@ -19,7 +19,7 @@ var debug = false
 
 func _ready():
 	open_sound_player = Audio.assign_sound_player(Audio.DOOR_OPEN, sound_location)
-	open_sound_player = Audio.assign_sound_player(Audio.DOOR_CLOSE, sound_location)
+	close_sound_player = Audio.assign_sound_player(Audio.DOOR_CLOSE, sound_location)
 	if (startOpen):
 		instant_open()
 	else:

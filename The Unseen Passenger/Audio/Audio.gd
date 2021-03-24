@@ -33,7 +33,7 @@ func _ready():
 	FileLoader.load_files_to("res://Audio/Characters/Walking", FileLoader.EXT.AUDIO, soundLists.char_walk)
 	FileLoader.load_files_to("res://Audio/Doors/Open", FileLoader.EXT.AUDIO, soundLists.door_open)
 	FileLoader.load_files_to("res://Audio/Doors/Close", FileLoader.EXT.AUDIO, soundLists.door_close)
-#	print(soundLists)
+	print(soundLists)
 	
 	if (music_loop.size() > 0):
 #		print("Starting music loop...")
@@ -56,6 +56,8 @@ func new_sound_player():
 	return sound_player
 
 func assign_sound_player(sound_key:String, source=self, offset=Vector2()):
+	if not sound_key in soundLists.keys():
+		printerr("Incorrect Sound Key")
 	var sound_player = retrieve_sound_player()
 	source.add_child(sound_player)
 	sound_player.set_source(source)
