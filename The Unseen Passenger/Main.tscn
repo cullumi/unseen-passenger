@@ -209,6 +209,7 @@ offset = Vector2( 0, 135 )
 [node name="PlayerCamera" parent="." instance=ExtResource( 16 )]
 
 [node name="Player" parent="." instance=ExtResource( 17 )]
+position = Vector2( 674.399, 336.359 )
 controlled = true
 
 [node name="Unseen Passenger" parent="." instance=ExtResource( 14 )]

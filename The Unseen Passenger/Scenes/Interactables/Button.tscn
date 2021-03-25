@@ -9,14 +9,21 @@
 [ext_resource path="res://Textures/Button/ButtonHighlight.png" type="Texture" id=7]
 [ext_resource path="res://Textures/Button/ButtonLightBlue.png" type="Texture" id=8]
 
-
-
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "Automatic",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "Unlocked",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Blocked",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -27,16 +34,6 @@ animations = [ {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "Open",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "Blocked",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "Unlocked",
 "speed": 5.0
 } ]
 

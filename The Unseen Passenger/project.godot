@@ -139,10 +139,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/State/Passenger/sneak_pass_state.gd"
 }, {
-"base": "Node2D",
-"class": "SoundPlayer",
+"base": "AudioStreamPlayer2D",
+"class": "SoundPlayer2D",
 "language": "GDScript",
-"path": "res://Audio/SoundPlayer.gd"
+"path": "res://Scripts/Utilities/SoundPlayer2D.gd"
 }, {
 "base": "PassState",
 "class": "StalkPassState",
@@ -211,7 +211,7 @@ _global_script_class_icons={
 "RunCharState": "",
 "SneakCharState": "",
 "SneakPassState": "",
-"SoundPlayer": "",
+"SoundPlayer2D": "",
 "StalkPassState": "",
 "State": "",
 "StateFactory": "",

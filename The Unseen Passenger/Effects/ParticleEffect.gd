@@ -2,7 +2,7 @@ extends Particles2D
 
 class_name ParticleEffect
 
-func _ready():
+func emit():
+	print("Emitting")
+	restart()
 	emitting = true
-	yield(get_tree().create_timer(lifetime * amount), "timeout")
-	queue_free()

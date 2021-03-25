@@ -23,7 +23,6 @@ var play_state
 
 func _ready() :
 	print("Player Ready")
-#	walk_sound_player.effect_key = null
 	play_state = PersistentState.new(self, PlayFactory)
 	add_child(play_state)
 	if controlled : add_child(PlayerInput.new(self))

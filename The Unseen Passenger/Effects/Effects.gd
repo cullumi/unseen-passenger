@@ -3,6 +3,8 @@
 extends Node
 
 # Autoload as "Effects"
+# Intended only to spawn particle effects and the like.
+# *Likely obsolete when using proper node-based development*
 
 const DEFAULT_SOUND = "echo"
 const NONE = null

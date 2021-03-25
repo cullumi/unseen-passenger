@@ -3,6 +3,8 @@ extends AnimatedSprite
 export (bool) var startOpen = false
 
 signal state_changed
+signal opened
+signal closed
 
 onready var collider : CollisionShape2D = $StaticBody2D/CollisionShape2D
 onready var light_occluder : LightOccluder2D = $LightOccluder2D
@@ -18,8 +20,6 @@ var close_sound_player = null
 var debug = false
 
 func _ready():
-	open_sound_player = Audio.assign_sound_player(Audio.DOOR_OPEN, sound_location)
-	close_sound_player = Audio.assign_sound_player(Audio.DOOR_CLOSE, sound_location)
 	if (startOpen):
 		instant_open()
 	else:
@@ -31,8 +31,7 @@ func open():
 	playing = true
 	collider.disabled = true
 	light_occluder.visible = false
-	if open_sound_player:
-		open_sound_player.play_rand_sound()
+	emit_signal("opened")
 
 func close():
 	if debug : print("Closing Door")
@@ -40,8 +39,7 @@ func close():
 	playing = true
 	collider.disabled = false
 	light_occluder.visible = true
-	if close_sound_player:
-		close_sound_player.play_rand_sound()
+	emit_signal("closed")
 
 func instant_open():
 	animation = "Opened"
