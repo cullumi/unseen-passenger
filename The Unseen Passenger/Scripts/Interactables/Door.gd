@@ -1,5 +1,7 @@
 extends AnimatedSprite
 
+class_name Door
+
 export (bool) var startOpen = false
 
 signal state_changed
@@ -13,6 +15,7 @@ onready var sound_location : Position2D = $SoundLocation
 var num_bodies = 0
 var closable = true
 var openable = true
+var is_open = false
 
 var open_sound_player = null
 var close_sound_player = null
@@ -31,7 +34,9 @@ func open():
 	playing = true
 	collider.disabled = true
 	light_occluder.visible = false
-	emit_signal("opened")
+	if not is_open:
+		emit_signal("opened")
+	is_open = true
 
 func close():
 	if debug : print("Closing Door")
@@ -39,19 +44,23 @@ func close():
 	playing = true
 	collider.disabled = false
 	light_occluder.visible = true
-	emit_signal("closed")
+	if is_open:
+		emit_signal("closed")
+	is_open = false
 
 func instant_open():
 	animation = "Opened"
 	playing = true
 	collider.disabled = true
 	light_occluder.visible = false
+	is_open = true
 
 func instant_close():
 	animation = "Closed"
 	playing = true
 	collider.disabled = false
 	light_occluder.visible = true
+	is_open = false
 
 func _on_animation_finished():
 	if debug : print("Animation Finished")

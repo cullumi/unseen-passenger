@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/ViewCone/CollisionCone2D.gd"
 }, {
+"base": "AnimatedSprite",
+"class": "Door",
+"language": "GDScript",
+"path": "res://Scripts/Interactables/Door.gd"
+}, {
 "base": "PassState",
 "class": "EscaptePassState",
 "language": "GDScript",
@@ -190,6 +195,7 @@ _global_script_class_icons={
 "CharState": "",
 "Character": "",
 "CollisionCone2D": "",
+"Door": "",
 "EscaptePassState": "",
 "FileLoader": "",
 "FleePassState": "",
@@ -230,7 +236,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Audio="*res://Audio/Audio.gd"
+Audio="*res://audio/Audio.gd"
 Effects="*res://Effects/Effects.gd"
 
 [display]

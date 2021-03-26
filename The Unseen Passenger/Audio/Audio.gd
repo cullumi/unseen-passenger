@@ -23,9 +23,9 @@ var soundLists:Dictionary = {
 }
 
 func _ready():
-	FileLoader.load_files_to("res://Audio/Characters/Walking", FileLoader.EXT.AUDIO, soundLists.char_walk)
-	FileLoader.load_files_to("res://Audio/Doors/Open", FileLoader.EXT.AUDIO, soundLists.door_open)
-	FileLoader.load_files_to("res://Audio/Doors/Close", FileLoader.EXT.AUDIO, soundLists.door_close)
+	FileLoader.load_files_to("res://audio/characters/walking", FileLoader.EXT.AUDIO, soundLists.char_walk)
+	FileLoader.load_files_to("res://audio/doors/open", FileLoader.EXT.AUDIO, soundLists.door_open)
+	FileLoader.load_files_to("res://audio/doors/close", FileLoader.EXT.AUDIO, soundLists.door_close)
 	print(soundLists)
 	
 	if (music_loop.size() > 0):

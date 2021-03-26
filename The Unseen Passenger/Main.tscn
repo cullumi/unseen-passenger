@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Textures/Parallax/SkyPB.png" type="Texture" id=1]
 [ext_resource path="res://Textures/Parallax/MountainsPB.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Textures/Door/Doorways.png" type="Texture" id=12]
 [ext_resource path="res://Textures/SteeringWheel.png" type="Texture" id=13]
 [ext_resource path="res://Scenes/Characters/NewPassenger.tscn" type="PackedScene" id=14]
+[ext_resource path="res://StageManager.gd" type="Script" id=15]
 [ext_resource path="res://Scenes/Characters/PlayerCamera.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Scenes/Characters/NewPlayer.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Interactables/TrainDoor.tscn" type="PackedScene" id=20]
@@ -32,6 +33,7 @@ extents = Vector2( 425.108, 10 )
 extents = Vector2( 3.28183, 61.6815 )
 
 [node name="Main" type="Node2D"]
+script = ExtResource( 15 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource( 5 )
@@ -152,7 +154,7 @@ position = Vector2( -499.929, 298.419 )
 target_path = NodePath("../TrainDoor1")
 valid_trigger_groups = {
 "close": [ "director", "passenger", "player" ],
-"open": [ "director", "passenger", "player" ]
+"open": [ "director", "passenger" ]
 }
 
 [node name="DoorButton2" parent="Train" groups=[
@@ -214,4 +216,6 @@ controlled = true
 
 [node name="Unseen Passenger" parent="." instance=ExtResource( 14 )]
 position = Vector2( -781.884, 319.958 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 [connection signal="cam_zoom" from="Player" to="PlayerCamera" method="smooth_zoom"]

@@ -22,16 +22,20 @@ static func load_files_to(str_dir : String, extensions=[], file_list = OUT.ARRAY
 	while true:
 		var file = dir.get_next()
 		if file == "":
+			print("* Finished Loading...")
 			break
 		elif not file.begins_with(".") and not dir.current_is_dir():
+			print("  - Handling file...")
 			if file_type_valid(file, extensions):
+				print("  + Found a valid file!")
+				var file_path = file.rstrip(".import")
 				if file_list is Array:
-					file_list.append(load(dir.get_current_dir() + "/" + file))
+					file_list.append(load(dir.get_current_dir() + "/" + file_path))
 				elif file_list is Dictionary:
-					var split_name = file.split(".")
+					var split_name = file_path.split(".")
 					var sliced_name = Strings.slice(split_name, 0, split_name.size()-1)
 					var final_name = sliced_name.join("")
-					file_list[final_name] = load(dir.get_current_dir() + "/" + file)
+					file_list[final_name] = load(dir.get_current_dir() + "/" + file_path)
 	dir.list_dir_end()
 	return file_list
 
@@ -39,6 +43,6 @@ static func file_type_valid(file, extensions:Array):
 	if extensions.empty():
 		return true
 	for extension in extensions:
-		if file.ends_with(extension):
+		if file.ends_with(extension+".import"):
 			return true
 	return false
