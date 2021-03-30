@@ -2,12 +2,12 @@
 
 importer="ogg_vorbis"
 type="AudioStreamOGGVorbis"
-path="res://.import/platesHit9.ogg-1400a91e1c4c30ac75bbb61e035bf24a.oggstr"
+path="res://.import/platesHit9.ogg-67caadc6366ede5b04801b0b965940c1.oggstr"
 
 [deps]
 
-source_file="res://audio/characters/walking/platesHit9.ogg"
-dest_files=[ "res://.import/platesHit9.ogg-1400a91e1c4c30ac75bbb61e035bf24a.oggstr" ]
+source_file="res://Audio/Characters/Walking/platesHit9.ogg"
+dest_files=[ "res://.import/platesHit9.ogg-67caadc6366ede5b04801b0b965940c1.oggstr" ]
 
 [params]
 
