@@ -40,20 +40,38 @@ func _ready():
 	create_timer()
 	set_stage(1)
 
+func _process(delta):
+	if is_blinking:
+		if not blink and timer.is_stopped():
+			timer.start(rand_range(0, blink_rate_max))
+	if blink:
+		process_blink(delta)
+
+# Enable / Disabled
+
 func set_enabled(enable):
 	for c in angled_contents:
 		if c.has_method("set_enabled"):
 			c.set_enabled(enable)
 	squash.visible = enable
 
+# Angled Content Creation
+
+
+
 func create_angled_contents():
 #	if default_ac_scene != null:
+	ac_scenes.clear()
+	Arrays.print_all(ac_scenes)
+	Arrays.print_names(ac_scenes)
 	for i in range(0, angle_count):
 		var packed_scene = assign_ac_scene(i, ConLoc.INNER if (i>0 and i<angle_count-1) else ConLoc.OUTER)
 		if packed_scene != null:
 			var c = packed_scene.instance()
 			add_child(c)
 			angled_contents.append(c)
+	Arrays.print_all(ac_scenes)
+	Arrays.print_names(ac_scenes)
 
 func assign_ac_scene(index=null, content_location=ConLoc.NA):
 	if index!=null:
@@ -70,14 +88,6 @@ func assign_ac_scene(index=null, content_location=ConLoc.NA):
 				return default_outer_ac_scene
 	if default_ac_scene!=null:
 		return default_ac_scene
-
-
-func _process(delta):
-	if is_blinking:
-		if not blink and timer.is_stopped():
-			timer.start(rand_range(0, blink_rate_max))
-	if blink:
-		process_blink(delta)
 
 # Starting and Stopping
 
@@ -120,7 +130,6 @@ func set_stage(new_stage):
 		angled_contents[i].rotation_degrees = lerp(close_angles[i], open_angles[i], stage)
 	squash.scale.y = clamp(stage, squash_limit, 1)
 	emit_signal("stage_changed", stage)
-
 # warning-ignore:shadowed_variable
 func level_to_stage(level): return abs((level-0.5) * 2)
 

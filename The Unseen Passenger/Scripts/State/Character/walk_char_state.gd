@@ -17,7 +17,7 @@ func _process(_delta):
 		strafe = false
 		character.walk()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if active:
 		character.handle_walk_sounds()
 

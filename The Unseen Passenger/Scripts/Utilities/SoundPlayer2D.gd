@@ -20,6 +20,7 @@ var looping:bool = false
 
 func _ready():
 	sounds = Audio.soundLists[sound_key]
+# warning-ignore:return_value_discarded
 	connect("finished", self, "_sound_ended")
 
 # The Basics

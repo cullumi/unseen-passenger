@@ -1,0 +1,5 @@
+extends %BASE%
+
+class_name New%BASE%State
+
+# State Specific Code Goes Here

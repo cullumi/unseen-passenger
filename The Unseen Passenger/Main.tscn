@@ -224,4 +224,5 @@ controlled = true
 position = Vector2( -781.884, 319.958 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="cam_zoom" from="Player" to="PlayerCamera" method="smooth_zoom"]

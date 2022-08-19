@@ -101,6 +101,13 @@ func construct_velocity():
 func apply_velocity():
 	final_velocity = move_and_slide(velocity, Vector2.UP)
 
+func set_flip_h(flipped:bool):
+	is_flipped = flipped
+	body.set_flip_h(flipped)
+	limbs.set_flip_h(flipped)
+
+# Low Level Audio
+
 func handle_walk_sounds():
 	if (final_velocity.x != 0):
 		if not sound_players.walk.looping:
@@ -115,8 +122,3 @@ func start_walk_sounds():
 func stop_walk_sounds():
 	if sound_players.walk.looping:
 		sound_players.walk.stop_sound_loop()
-
-func set_flip_h(flipped:bool):
-	is_flipped = flipped
-	body.set_flip_h(flipped)
-	limbs.set_flip_h(flipped)

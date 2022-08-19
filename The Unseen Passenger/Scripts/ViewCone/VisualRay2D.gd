@@ -38,7 +38,7 @@ func _physics_process(_delta):
 	else:
 		var gl_point = to_global(ray.cast_to)
 		if gl_point != last_point:
-			last_point
+#			last_point
 			set_point(gl_point)
 			emit_signal("point_changed", gl_point)
 
